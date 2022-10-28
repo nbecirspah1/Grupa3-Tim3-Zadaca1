@@ -31,10 +31,25 @@ namespace Zadaca1
         public string Informacije { set => informacije = value; }
         public int BrojGlasova { get => brojGlasova; }
         public string NazivKandidata { get => ime + " " + prezime; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Kandidat kandidat &&
+                   ime == kandidat.ime &&
+                   prezime == kandidat.prezime &&
+                   informacije == kandidat.informacije &&
+                   brojGlasova == kandidat.brojGlasova &&
+                   nezavisniKandidat == kandidat.nezavisniKandidat;
+        }
         #endregion
 
         #region Metode
         public void povecajBrojGlasova() { brojGlasova++; }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(ime,prezime,informacije,brojGlasova,nezavisniKandidat);
+        }
         #endregion
     }
 }

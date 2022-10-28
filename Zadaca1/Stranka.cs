@@ -29,6 +29,20 @@ namespace Zadaca1
         public void dodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); }
         public void izbrisiKandidata(Kandidat kandidat) { kandidati.Remove(kandidat); }
         public void povecajGlasove() { brojGlasova++; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Stranka stranka &&
+                   nazivStranke == stranka.nazivStranke &&
+                   informacije == stranka.informacije &&
+                   EqualityComparer<List<Kandidat>>.Default.Equals(kandidati, stranka.kandidati) &&
+                   brojGlasova == stranka.brojGlasova;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(nazivStranke, informacije, kandidati, brojGlasova);
+        }
         #endregion
 
         #region Properties
