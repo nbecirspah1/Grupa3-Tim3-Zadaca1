@@ -66,7 +66,7 @@ namespace Zadaca1
         {
             glasaoZaNezavisnogKandidata = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
             if (!glasaoZaNezavisnogKandidata)
-            {
+        {
                 throw new Exception("Već ste glasali!");
             }
             nezavisniKandidat.povecajBrojGlasova();

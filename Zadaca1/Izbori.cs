@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Zadaca1
 {
     public class Izbori
-    {
+    {   
         #region Atributi
         List<Stranka> stranke;
         List<Kandidat> nezavisniKandidati;
         int brojMogucihGlasaca;
         #endregion
-
+        
         #region Konstruktor
         public Izbori(List<Stranka> stranke, List<Kandidat> nezavisniKandidati, int brojMogucihGlasaca)
         {
@@ -22,7 +22,7 @@ namespace Zadaca1
             this.brojMogucihGlasaca = brojMogucihGlasaca;
         }
         #endregion
-
+        
         #region Metode
         public void dodajStranku(Stranka stranka) { stranke.Add(stranka); }
         public void izbrisiStranku(Stranka stranka) { stranke.Remove(stranka); }
@@ -80,7 +80,7 @@ namespace Zadaca1
             {
                 double postotak = (double)k.BrojGlasova / (double)brojGlasaca;
                 if (postotak > 0.02)
-                {
+        {
                     kandidati1.Add(k, (int)(100 * postotak));
                 }
             }
@@ -92,7 +92,7 @@ namespace Zadaca1
             foreach (Kandidat k in s.Kandidati)
             {
                 if ((double)k.BrojGlasova / (double)s.BrojGlasova > 0.2)
-                {
+        {
                     kandidati1.Add(k);
                 }
             }
@@ -105,18 +105,18 @@ namespace Zadaca1
             s.Append("Izlaznost na izbore: ").Append(dajIzlaznostNaIzbore().ToString()).Append("%\n\n");
             s.Append("Mandatske stranke i njihovi rezultati:\n");
             foreach(var str in dajMandatskeStranke())
-            {
+        {
                 s.Append(str.Key.NazivStranke).Append(" ").Append(str.Value).Append("%\n");
                 s.Append("Kandidati koji su osvojili mandate unutar ove stranke:\n");
                 foreach(Kandidat k in dajMandatskeKandidate(str.Key))
-                {
+            {
                     s.Append(k.NazivKandidata).Append("\n");
-                }
             }
+        }
             s.Append("\n");
             s.Append("Mandatski nezavisni kandidati i njihovi rezultati:\n");
             foreach (var str in dajMandatskeNezavisneKandidate())
-            {
+        {
                 s.Append(str.Key.NazivKandidata).Append(" ").Append(str.Value).Append("%\n");
             }
             return s.ToString();
