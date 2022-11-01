@@ -22,17 +22,16 @@ bool glasaoZaNezavisnogKandidata;
     #endregion
 
     #region Konstruktor
-public Glasac(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string jMBG)
+public Glasac(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte)
 {
 this.ime = ime;
 this.prezime = prezime;
 this.adresaStanovanja = adresaStanovanja;
 this.datumRodjenja = datumRodjenja;
 this.brojLicneKarte = brojLicneKarte;
-JMBG = jMBG;
 identifikacioniBroj = ime.Substring(0, 2) + prezime.Substring(0, 2) +
                     adresaStanovanja.Substring(0, 2) + datumRodjenja.ToString("dd.MM.yyyy.").Substring(0, 2)
-                    + brojLicneKarte.Substring(0, 2) + jMBG.Substring(0, 2);
+                    + brojLicneKarte.Substring(0, 2);
 glasaoZaStranku = false;
 glasaoZaNezavisnogKandidata = false;
 }
