@@ -64,7 +64,7 @@ stranka.Kandidati[stranka.Kandidati.IndexOf(k)].povecajBrojGlasova();
 public void glasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
 {
 glasaoZaNezavisnogKandidata = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
-if (!glasaoZaNezavisnogKandidata)
+if (glasaoZaNezavisnogKandidata)
 {
 throw new Exception("Već ste glasali!");
 }
