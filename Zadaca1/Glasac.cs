@@ -44,7 +44,7 @@ public string IdentifikacioniBroj { get => identifikacioniBroj; }
 #region Metode
 public void glasajZaStranku(Stranka stranka, List<Kandidat> kandidati)
 {
-glasaoZaStranku = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
+glasaoZaStranku = glasaoZaNezavisnogKandidata = false && glasaoZaStranku == false;
 if(!glasaoZaStranku)
 {
 throw new Exception("Već ste glasali!");
@@ -64,7 +64,7 @@ stranka.Kandidati[stranka.Kandidati.IndexOf(k)].povecajBrojGlasova();
 public void glasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
 {
 glasaoZaNezavisnogKandidata = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
-if (!glasaoZaNezavisnogKandidata)
+if (glasaoZaNezavisnogKandidata)
 {
 throw new Exception("Već ste glasali!");
 }
