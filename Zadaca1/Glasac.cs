@@ -44,7 +44,7 @@ public string IdentifikacioniBroj { get => identifikacioniBroj; }
 #region Metode
 public void glasajZaStranku(Stranka stranka, List<Kandidat> kandidati)
 {
-glasaoZaStranku = glasaoZaNezavisnogKandidata = false && glasaoZaStranku == false;
+glasaoZaStranku = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
 if(!glasaoZaStranku)
 {
 throw new Exception("Već ste glasali!");
