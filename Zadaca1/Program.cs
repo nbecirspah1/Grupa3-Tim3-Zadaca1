@@ -48,8 +48,7 @@ namespace Zadaca1
                     "3 - Kraj");
                 int broj = 0;
                 broj = Convert.ToInt32(Console.ReadLine());
-                if (broj < 1 || broj > 3) Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
-                else if (broj == 1)
+                if (broj == 1)
                 {
                     Console.WriteLine("Ime:");
                     string ime = Console.ReadLine();
@@ -78,8 +77,7 @@ namespace Zadaca1
 
                     int broj1 = 0;
                     broj1 = Convert.ToInt32(Console.ReadLine());
-                    if (broj1 < 1 || broj1 > 3) Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
-                    else if (broj1 == 1)
+                    if (broj1 == 1)
                     {
                         int i = 1;
                         List<Kandidat> kandidati = new List<Kandidat>();
@@ -129,6 +127,11 @@ namespace Zadaca1
                         glasaci.Add(glasac.IdentifikacioniBroj);
                     }
                     else if (broj == 3) break;
+                    else
+                    {
+                       Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
+                    }
+                    /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
                 }
                 else if (broj == 2)
                 {
@@ -137,14 +140,16 @@ namespace Zadaca1
                 else if (broj == 3)
                 {
                     break;
+                } else
+                {
+                    Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                 }
+                /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
             }
-             for
-                
-                (int i=0; i<glasaci.size(); i++)
-            {
+            for (int i=0; i<glasaci.size(); i++) {
                 Console.WriteLine(glasaci[i]);
             }
+             //Bespotrebna for petlja
         }
     }
 }
