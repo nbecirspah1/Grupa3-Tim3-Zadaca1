@@ -99,7 +99,7 @@ namespace Zadaca1
                     kandidati1.Add(k);
                     /*Korištenje break naredbe u ovom slučaju je pogrešno,
                      obzirom da će na taj način biti dodat samo prvi 
-                     kandidat koji ispunjava uslov*/ 
+                     kandidat koji ispunjava if uslov*/ 
 
                 }
             }
