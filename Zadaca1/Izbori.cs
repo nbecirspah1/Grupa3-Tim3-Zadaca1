@@ -97,7 +97,10 @@ namespace Zadaca1
                 if ((double)k.BrojGlasova / (double)s.BrojGlasova > 0.2)
         {
                     kandidati1.Add(k);
-                    break;
+                    /*Korištenje break naredbe u ovom slučaju je pogrešno,
+                     obzirom da će na taj način biti dodat samo prvi 
+                     kandidat koji ispunjava uslov*/ 
+
                 }
             }
             return kandidati1;
