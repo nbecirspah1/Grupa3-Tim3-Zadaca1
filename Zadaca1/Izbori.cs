@@ -11,15 +11,15 @@ namespace Zadaca1
         #region Atributi
         List<Stranka> stranke;
         List<Kandidat> nezavisniKandidati;
-        int numberOfVoters;
+        int brojMogucihKandidata;
         #endregion
         
         #region Konstruktor
-        public Izbori(List<Stranka> stranke, List<Kandidat> nezavisniKandidati, int numberOfVoters)
+        public Izbori(List<Stranka> stranke, List<Kandidat> nezavisniKandidati, int brojMogucihKandidata)
         {
             this.stranke = stranke;
             this.nezavisniKandidati = nezavisniKandidati;
-            this.numberOfVoters = numberOfVoters;
+            this.brojMogucihKandidata = brojMogucihKandidata;
         }
         #endregion
         
@@ -39,7 +39,7 @@ namespace Zadaca1
             {
                 izlaznostNaIzbore += k.BrojGlasova;
             }
-            izlaznostNaIzbore = (int)(100 * (izlaznostNaIzbore / (double)numberOfVoters));
+            izlaznostNaIzbore = (int)(100 * (izlaznostNaIzbore / (double)brojMogucihKandidata));
             return izlaznostNaIzbore;
         }
         

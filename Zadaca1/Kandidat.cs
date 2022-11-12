@@ -8,48 +8,38 @@ namespace Zadaca1
 {
     public class Kandidat
     {
-        #region Atributi
         string ime;
         string prezime;
         string informacije;
-        int brojGlasova;
+        int number_of_votes;
         Stranka stranka = null;
-        #endregion
 
-        #region Konstruktor
-        public Kandidat(string ime, string prezime, Stranka stranka = null)
+        public Kandidat
+            (string ime, string prezime, Stranka stranka = null)
         {
-            this.ime = ime;
-            this.prezime = prezime;
-            brojGlasova = 0;
-            informacije = "";
+      this.ime = ime;
+        this.prezime = prezime;
+     number_of_votes = 0;      informacije = "";
             this.stranka = stranka;
         }
-        #endregion
 
-        #region Properties
         public string Informacije { set => informacije = value; }
-        public int BrojGlasova { get => brojGlasova; }
+        public int BrojGlasova { get => number_of_votes; }
         public string NazivKandidata { get => ime + " " + prezime; }
 
         public override bool Equals(object obj)
         {
             return obj is Kandidat kandidat &&
-                   ime == kandidat.ime &&
+                                             ime == kandidat.ime &&
                    prezime == kandidat.prezime &&
-                   informacije == kandidat.informacije &&
-                   brojGlasova == kandidat.brojGlasova &&
-                   stranka == kandidat.stranka;
-        }
-        #endregion
+                                                  informacije == kandidat.informacije &&
+                   number_of_votes == kandidat.number_of_votes && stranka == kandidat.stranka;
+}
 
-        #region Metode
-        public void povecajBrojGlasova() { brojGlasova++; }
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(ime,prezime,informacije,brojGlasova,stranka);
-        }
-        #endregion
+         public void povecajBrojGlasova() { number_of_votes++; }
+
+        public override int GetHashCode(){ return HashCode.Combine(ime,prezime,informacije,number_of_votes,stranka);  }
+        
     }
 }
