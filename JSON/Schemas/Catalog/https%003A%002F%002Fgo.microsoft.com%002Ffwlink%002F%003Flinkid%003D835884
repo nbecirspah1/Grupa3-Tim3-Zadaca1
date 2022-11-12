@@ -20,7 +20,11 @@
       "name": "@factorial/drupal-breakpoints-css",
       "description": "JSON Schema for @factorial/drupal-breakpoints-css config file",
       "fileMatch": ["breakpoints.config.yml"],
+<<<<<<< HEAD
       "url": "https://json.schemastore.org/factorial-drupal-breakpoints-css-0.2.0.json"
+=======
+      "url": "https://json.schemastore.org/factorial-drupal-breakpoints-css-0.1.0.json"
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
     },
     {
       "name": ".adonisrc.json",
@@ -363,7 +367,11 @@
     {
       "name": "babelrc.json",
       "description": "Babel configuration file",
+<<<<<<< HEAD
       "fileMatch": [".babelrc", ".babelrc.json", "babel.config.json"],
+=======
+      "fileMatch": [".babelrc", "babel.config.json"],
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "url": "https://json.schemastore.org/babelrc.json"
     },
     {
@@ -411,6 +419,7 @@
       ]
     },
     {
+<<<<<<< HEAD
       "name": "beef-database-v5-codegen",
       "description": "Beef (Business Entity Execution Framework) database code-generation configuration (v5).",
       "url": "https://raw.githubusercontent.com/Avanade/Beef/master/tools/Beef.CodeGen.Core/Schema/database.beef-5.json",
@@ -437,6 +446,8 @@
       ]
     },
     {
+=======
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "name": "bigquery-table",
       "description": "BigQuery table schema",
       "url": "https://json.schemastore.org/bigquery-table.json",
@@ -1251,13 +1262,21 @@
     {
       "name": "Devfile",
       "description": "JSON schema for Devfiles",
+<<<<<<< HEAD
       "url": "https://raw.githubusercontent.com/devfile/api/v2.2.0/schemas/latest/devfile.json",
+=======
+      "url": "https://raw.githubusercontent.com/devfile/api/v2.1.0/schemas/latest/devfile.json",
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "fileMatch": ["devfile.yaml", ".devfile.yaml"],
       "versions": {
         "1.0.0": "https://raw.githubusercontent.com/eclipse-che/che-server/master/wsmaster/che-core-api-workspace/src/main/resources/schema/1.0.0/devfile.json",
         "2.0.0": "https://raw.githubusercontent.com/devfile/api/v2.0.0/schemas/latest/devfile.json",
+<<<<<<< HEAD
         "2.1.0": "https://raw.githubusercontent.com/devfile/api/v2.1.0/schemas/latest/devfile.json",
         "2.2.0": "https://raw.githubusercontent.com/devfile/api/v2.2.0/schemas/latest/devfile.json"
+=======
+        "2.1.0": "https://raw.githubusercontent.com/devfile/api/v2.1.0/schemas/latest/devfile.json"
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       }
     },
     {
@@ -1414,8 +1433,12 @@
       "fileMatch": ["func.yaml"],
       "url": "https://raw.githubusercontent.com/knative/func/latest-release/schema/func_yaml-schema.json",
       "versions": {
+<<<<<<< HEAD
         "1.7": "https://raw.githubusercontent.com/knative/func/release-1.7/schema/func_yaml-schema.json",
         "1.8": "https://raw.githubusercontent.com/knative/func/release-1.8/schema/func_yaml-schema.json"
+=======
+        "1.7": "https://raw.githubusercontent.com/knative/func/release-1.7/schema/func_yaml-schema.json"
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       }
     },
     {
@@ -2808,6 +2831,7 @@
       "url": "https://raw.githubusercontent.com/hardisgroupcom/sfdx-hardis/main/config/sfdx-hardis.jsonschema.json"
     },
     {
+<<<<<<< HEAD
       "name": "SIL Kit Participant Configuration",
       "description": "Configuration file for a Vector SIL Kit Participant",
       "fileMatch": [
@@ -2819,6 +2843,8 @@
       "url": "https://json.schemastore.org/sil-kit-participant-configuration.json"
     },
     {
+=======
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "name": "size-limit configuration",
       "description": "Configuration file for size-limit",
       "fileMatch": [".size-limit.json"],
@@ -2916,12 +2942,15 @@
       "url": "https://raw.githubusercontent.com/stripe/stripe-apps/main/schema/stripe-app.schema.json"
     },
     {
+<<<<<<< HEAD
       "name": "stripe-app-local.json",
       "description": "Stripe Apps local manifest file",
       "fileMatch": ["stripe-app.*.json"],
       "url": "https://raw.githubusercontent.com/stripe/stripe-apps/main/schema/stripe-app-local.schema.json"
     },
     {
+=======
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "name": "Stryker Mutator",
       "description": "Configuration file for Stryker Mutator, the mutation testing framework for JavaScript and friends. See https://stryker-mutator.io.",
       "fileMatch": ["stryker.conf.json", "stryker-*.conf.json"],
@@ -3046,7 +3075,11 @@
     {
       "name": "tsconfig.json",
       "description": "TypeScript compiler configuration file",
+<<<<<<< HEAD
       "fileMatch": ["tsconfig*.json"],
+=======
+      "fileMatch": ["tsconfig.json"],
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "url": "https://json.schemastore.org/tsconfig.json"
     },
     {
@@ -3407,12 +3440,15 @@
       "url": "https://json.schemastore.org/lintstagedrc.schema.json"
     },
     {
+<<<<<<< HEAD
       "name": "mirrord-schema",
       "description": "Schema for mirrord.",
       "fileMatch": ["*.mirrord.+(toml|json|y?(a)ml)"],
       "url": "https://raw.githubusercontent.com/metalbear-co/mirrord/main/mirrord-schema.json"
     },
     {
+=======
+>>>>>>> 5f4805910e3f1d2ac7731dc4fb57834cb1c3833d
       "name": "mta.yaml",
       "description": "A JSON schema for MTA projects v3.3",
       "fileMatch": ["mta.yaml", "mta.yml"],

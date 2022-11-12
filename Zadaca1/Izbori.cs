@@ -42,6 +42,7 @@ namespace Zadaca1
             izlaznostNaIzbore = (int)(100 * (izlaznostNaIzbore / (double)brojMogucihGlasaca));
             return izlaznostNaIzbore;
         }
+        
         public Dictionary<Stranka, int> dajMandatskeStranke()
         {
             Dictionary<Stranka,int> stranke1 = new();
@@ -86,6 +87,8 @@ namespace Zadaca1
             }
             return kandidati1;
         }
+
+        // Ova metoda vraća listu kandidata koji su osvojili 20% glasova od ukupnih glasova stranke kojoj pripadaju
         public List<Kandidat> dajMandatskeKandidate(Stranka s)
         {
             List<Kandidat> kandidati1 = new();

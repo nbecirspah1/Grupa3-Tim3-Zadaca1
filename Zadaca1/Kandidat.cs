@@ -13,17 +13,17 @@ namespace Zadaca1
         string prezime;
         string informacije;
         int brojGlasova;
-        bool nezavisniKandidat;
+        Stranka stranka = null;
         #endregion
 
         #region Konstruktor
-        public Kandidat(string ime, string prezime, bool nezavisniKandidat)
+        public Kandidat(string ime, string prezime, Stranka stranka = null)
         {
             this.ime = ime;
             this.prezime = prezime;
             brojGlasova = 0;
             informacije = "";
-            this.nezavisniKandidat = nezavisniKandidat;
+            this.stranka = stranka;
         }
         #endregion
 
@@ -39,7 +39,7 @@ namespace Zadaca1
                    prezime == kandidat.prezime &&
                    informacije == kandidat.informacije &&
                    brojGlasova == kandidat.brojGlasova &&
-                   nezavisniKandidat == kandidat.nezavisniKandidat;
+                   stranka == kandidat.stranka;
         }
         #endregion
 
@@ -48,7 +48,7 @@ namespace Zadaca1
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(ime,prezime,informacije,brojGlasova,nezavisniKandidat);
+            return HashCode.Combine(ime,prezime,informacije,brojGlasova,stranka);
         }
         #endregion
     }
