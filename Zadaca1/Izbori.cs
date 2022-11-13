@@ -24,40 +24,35 @@ namespace Zadaca1
         #endregion
         
         #region Metode
+        private int brojGlasaca()
+        {
+            int glasaci = 0;
+            foreach (Stranka s in stranke)
+            {
+                glasaci += s.BrojGlasova;
+            }
+            foreach (Kandidat k in nezavisniKandidati)
+            {
+                glasaci += k.BrojGlasova;
+            }
+            return glasaci;
+        }
         public void dodajStranku(Stranka stranka) { stranke.Add(stranka); }
         public void izbrisiStranku(Stranka stranka) { stranke.Remove(stranka); }
         public void dodajNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Add(kandidat); }
         public void izbrisiNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Remove(kandidat); }
-        public int dajIzlaznostNaIzbore()
+        public double dajIzlaznostNaIzbore()
         {
-            int izlaznostNaIzbore = 0;
-            foreach (Stranka s in stranke)
-            {
-                izlaznostNaIzbore += s.BrojGlasova;
-            }
-            foreach (Kandidat k in nezavisniKandidati)
-            {
-                izlaznostNaIzbore += k.BrojGlasova;
-            }
-            izlaznostNaIzbore = (int)(100 * (izlaznostNaIzbore / (double)brojMogucihKandidata));
-            return izlaznostNaIzbore;
+            return (100 * (brojGlasaca() / (double)brojMogucihKandidata));
         }
         
         public Dictionary<Stranka, int> dajMandatskeStranke()
         {
             Dictionary<Stranka,int> stranke1 = new();
-            int brojGlasaca = 0;
+            double glasaci = brojGlasaca();
             foreach (Stranka s in stranke)
             {
-                brojGlasaca += s.BrojGlasova;
-            }
-            foreach (Kandidat k in nezavisniKandidati)
-            {
-                brojGlasaca += k.BrojGlasova;
-            }
-            foreach(Stranka s in stranke)
-            {
-                double postotak = (double)s.BrojGlasova / (double)brojGlasaca;
+                double postotak = (double)s.BrojGlasova / glasaci;
                 if (postotak>0.02)
                 {
                     stranke1.Add(s,(int)(100*postotak));
@@ -68,18 +63,10 @@ namespace Zadaca1
         public Dictionary<Kandidat,int> dajMandatskeNezavisneKandidate()
         {
             Dictionary<Kandidat,int> kandidati1 = new();
-            int brojGlasaca = 0;
-            foreach (Stranka s in stranke)
-            {
-                brojGlasaca += s.BrojGlasova;
-            }
+            double glasaci = brojGlasaca();
             foreach (Kandidat k in nezavisniKandidati)
             {
-                brojGlasaca += k.BrojGlasova;
-            }
-            foreach (Kandidat k in nezavisniKandidati)
-            {
-                double postotak = (double)k.BrojGlasova / (double)brojGlasaca;
+                double postotak = (double)k.BrojGlasova / glasaci;
                 if (postotak > 0.02)
         {
                     kandidati1.Add(k, (int)(100 * postotak));
@@ -97,7 +84,8 @@ namespace Zadaca1
                 if ((double)k.BrojGlasova / (double)s.BrojGlasova > 0.2)
         {
                     kandidati1.Add(k);
-                    break;
+                    /*Korištenje break naredbe u ovom slučaju je pogrešno 
+                     obzirom da će na taj način biti dodat samo prvi kandidat koji ispunajva if uslov*/ 
 
                 }
             }
