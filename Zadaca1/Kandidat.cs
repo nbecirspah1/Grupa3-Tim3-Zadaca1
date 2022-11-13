@@ -12,6 +12,7 @@ namespace Zadaca1
         string prezime;
         string informacije;
         int number_of_votes;
+        //Imenovanje varijabli nije konzistentno. Potrebno je koristiti CamelCase i imenovati na bosanskom jeziku atribute.
         Stranka stranka = null;
 
         public Kandidat
@@ -23,9 +24,16 @@ namespace Zadaca1
             this.stranka = stranka;
         }
 
-        public string Informacije { set => informacije = value; }
-        public int BrojGlasova { get => number_of_votes; }
+        public string Informacije { set => informacije = value; get => informacije;}
+        public int BrojGlasova { set => number_of_votes=value; get => number_of_votes; }
         public string NazivKandidata { get => ime + " " + prezime; }
+        public string Ime { set => ime=value; get => ime; }
+        public string Prezime { set => prezime=value; get => prezime; }
+        public string Stranka { set => stranka=value; get => stranka; }
+        /*Dodani seteri i geteri za sve atribute.
+         Na taj način smo popravili kvalitetu koda 
+        i omogućili lakše nadogradnje.*/
+        
 
         public override bool Equals(object obj)
         {

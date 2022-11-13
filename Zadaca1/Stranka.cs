@@ -33,6 +33,7 @@ namespace Zadaca1
         //Method removes candidate which is an argument of this function
         public void izbrisiKandidata(Kandidat kandidat) { 
             if(kandidati.size()==0) return;
+            //if uslov je suvišan i nepotreban
             kandidati.Remove(kandidat); 
         }
         //Method for votes
@@ -55,9 +56,11 @@ namespace Zadaca1
 
         //odgovarajući geteri
         #region Properties
-        public List<Kandidat> Kandidati { get => kandidati; }
-        public int BrojGlasova { get => brojGlasova;  }
-        public string NazivStranke { get => nazivStranke; }
+        public List<Kandidat> Kandidati { get => kandidati; set => kandidati = value; }
+        public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }
+        public string NazivStranke { get => nazivStranke; set => nazivStranke = value; }
+        /*Dodani seteri za sve atribute. Ovim putem je popravljena
+        kvaliteta koda i omogućena nadogradnja istog u budućnosti.*/
         #endregion
     }
 }
