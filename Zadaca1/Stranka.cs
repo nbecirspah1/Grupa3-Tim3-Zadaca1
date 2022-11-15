@@ -32,8 +32,6 @@ namespace Zadaca1
         public void dodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); }
         //Method removes candidate which is an argument of this function
         public void izbrisiKandidata(Kandidat kandidat) { 
-            if(kandidati.size()==0) return;
-            //if uslov je suvišan i nepotreban
             kandidati.Remove(kandidat); 
         }
         //Method for votes
