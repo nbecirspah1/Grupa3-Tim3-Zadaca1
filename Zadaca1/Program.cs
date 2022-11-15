@@ -129,7 +129,7 @@ namespace Zadaca1
                     else if (broj == 3) break;
                     else
                     {
-                       Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
+                        Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                     }
                     /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
                 }
@@ -140,16 +140,13 @@ namespace Zadaca1
                 else if (broj == 3)
                 {
                     break;
-                } else
+                }
+                else
                 {
                     Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                 }
                 /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
             }
-            for (int i=0; i<glasaci.size(); i++) {
-                Console.WriteLine(glasaci[i]);
-            }
-             //Bespotrebna for petlja
         }
     }
 }
