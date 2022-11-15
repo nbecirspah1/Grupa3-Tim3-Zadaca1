@@ -147,11 +147,6 @@ namespace Zadaca1
                 }
                 /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
             }
-            for (int i = 0; i < glasaci.size(); i++)
-            {
-                Console.WriteLine(glasaci[i]);
-            }
-            //Bespotrebna for petlja
         }
     }
 }
