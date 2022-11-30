@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Zadaca1
@@ -17,7 +18,8 @@ namespace Zadaca1
         #endregion
 
         #region Konstruktor
-        public Kandidat (string ime, string prezime, Stranka stranka = null){
+        public Kandidat(string ime, string prezime, Stranka stranka = null)
+        {
             this.ime = ime;
             this.prezime = prezime;
             brojGlasova = 0;
@@ -27,16 +29,17 @@ namespace Zadaca1
         #endregion
 
         #region Properties
-        public string Informacije { set => informacije = value; get => informacije;}
-        public int BrojGlasova { set => brojGlasova=value; get => brojGlasova; }
+        public string Informacije { set => informacije = value; get => informacije; }
+        public int BrojGlasova { set => brojGlasova = value; get => brojGlasova; }
         public string NazivKandidata { get => ime + " " + prezime; }
-        public string Ime { set => ime=value; get => ime; }
-        public string Prezime { set => prezime=value; get => prezime; }
-        public Stranka Stranka { set => stranka=value; get => stranka; }
+        public string Ime { set => ime = value; get => ime; }
+        public string Prezime { set => prezime = value; get => prezime; }
+        public Stranka Stranka { set => stranka = value; get => stranka; }
         #endregion
 
         #region Metode
-        public override bool Equals(object obj){
+        public override bool Equals(object obj)
+        {
             return obj is Kandidat kandidat &&
                                              ime == kandidat.ime &&
                    prezime == kandidat.prezime &&
@@ -44,10 +47,29 @@ namespace Zadaca1
                    brojGlasova == kandidat.brojGlasova && stranka == kandidat.stranka;
         }
 
+        public void povecajBrojGlasova() { brojGlasova++; }
 
-         public void povecajBrojGlasova() { brojGlasova++; }
+        public override int GetHashCode() { return HashCode.Combine(ime, prezime, informacije, brojGlasova, stranka); }
 
-        public override int GetHashCode(){ return HashCode.Combine(ime,prezime,informacije,brojGlasova,stranka);  }
+        public void ispisiDetaljneInformacije()
+        {
+            string informacije1 = informacije;
+            Regex regex = new(@"Kandidat je bio ");
+            informacije1 = regex.Replace(informacije1, "");
+            regex = new(@"član stranke ");
+            informacije1 = regex.Replace(informacije1, "");
+            var lista = informacije1.Split(", ");
+            StringBuilder informacije2 = new();
+            foreach (var l in lista)
+            {
+                var groups = Regex.Match(l, @"(.*) od (.*) do (.*)").Groups;
+                var datum2 = groups[3].Value;
+                datum2 = Regex.Replace(datum2, @"\.", "");
+                informacije2.Append("Stranka: ").Append(groups[1].Value).Append(", Članstvo od: ").Append(groups[2].Value)
+                            .Append(", Članstvo do: ").Append(datum2).Append("\n");
+            }
+            Console.WriteLine(informacije2.ToString());
+        }
         #endregion
     }
 }
