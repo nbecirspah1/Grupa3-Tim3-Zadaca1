@@ -11,32 +11,27 @@ namespace Zadaca1
 
 
             List<Stranka> stranke = new List<Stranka>();
-            stranke.Add(new Stranka("SDA", "Izetbegović za predsjednika!",
-                                   new List<Kandidat>() { new Kandidat("Bakir", "Izetbegović", false),
-                                      new Kandidat("Sebija", "Izetbegović", false),
-                                      new Kandidat("Šefik", "Džaferagić", false)}));
-            stranke.Add(new Stranka("HDZ", "Krišto za predsjednicu!",
-                                    new List<Kandidat>()  {new Kandidat("Borjana", "Krišto", false),
-                                                           new Kandidat("Dragan", "Čović", false),
-                                                           new Kandidat("Neko", "Nekić", false)}));
 
-            stranke.Add(new Stranka("SNSD", "Dodik za predsjednika!",
-                                new List<Kandidat>() { new Kandidat("Milorad", "Dodik", false),
-                                  new Kandidat("Željka", "Cvijanović", false),
-                                  new Kandidat("Dragutin", "Dragutinić", false)}));
+            Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
+            stranka1.dodajKandidata(new Kandidat("Bakir", "Izetbegović", stranka1));
+            stranka1.dodajKandidata(new Kandidat("Sebija", "Izetbegović", stranka1));
+            stranka1.dodajKandidata(new Kandidat("Šefik", "Džaferagić", stranka1));
+            stranke.Add(stranka1);
 
-            var k1 = new List<Kandidat>() { new Kandidat("Milorad", "Dodik", false),
-                                  new Kandidat("Željka", "Cvijanović", false),
-                                  new Kandidat("Dragutin", "Dragutinić", false)};
+            Stranka stranka2 = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
+            stranka2.dodajKandidata(new Kandidat("Milorad", "Dodik", stranka2));
+            stranka2.dodajKandidata(new Kandidat("Željka", "Cvijanović", stranka2));
+            stranka2.dodajKandidata(new Kandidat("Dragutin", "Dragutinić", stranka2));
+            stranke.Add(stranka2);
 
             List<Kandidat> nezKandidati = new();
-            nezKandidati.Add(new("Nezavisni", "Kandidat1", true));
-            nezKandidati.Add(new("Nezavisni", "Kandidat2", true));
-            nezKandidati.Add(new("Nezavisni", "Kandidat3", true));
+            nezKandidati.Add(new("Nezavisni", "Kandidat1", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat2", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat3", null));
 
 
 
-            Izbori izbori = new(stranke, k1, 100);
+            Izbori izbori = new(stranke, nezKandidati, 100);
 
             List<string> glasaci = new();
 
