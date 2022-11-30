@@ -104,7 +104,7 @@ namespace Zadaca1
             else if(JMBG.Length != 13 || string.Compare(JMBG.Substring(0,2), datumRodjenja.ToString("dd")) != 0
                     || string.Compare(JMBG.Substring(2,2), datumRodjenja.ToString("MM")) != 0
                     || string.Compare(JMBG.Substring(4,3), datumRodjenja.ToString("yyy").Substring(1,3)) != 0){
-                throw new Exception(JMBG.Substring(0, 2)+" "+ JMBG.Substring(2, 2) + " " + JMBG.Substring(4, 3) + " " + datumRodjenja.ToString("dd")+ " "+ datumRodjenja.ToString("MM") + " "+ datumRodjenja.ToString("yyy").Substring(1, 3) + " " + "JMBG nije validan!");   
+                throw new Exception("JMBG nije validan!");   
             }
         }
 
