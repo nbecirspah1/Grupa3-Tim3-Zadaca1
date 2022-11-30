@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Zadaca1
@@ -24,6 +25,7 @@ namespace Zadaca1
         #region Konstruktor
         public Glasac(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG)
         {
+            ValidacijaPodataka(ime, prezime, adresaStanovanja, datumRodjenja, brojLicneKarte, JMBG);
             this.ime = ime;
             this.prezime = prezime;
             this.adresaStanovanja = adresaStanovanja;
@@ -76,7 +78,7 @@ namespace Zadaca1
         public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG){
             Regex regex = new Regex(@"^[-a-zA-Z]");
             Regex licnaKarta = new Regex(@"[0-9][0-9][0-9][EJKMT][0-9][0-9][0-9]");
-            var trenutnaGodina = DateTime.Now.ToString("yyyy").Int32.TryParse();
+            var trenutnaGodina = Convert.ToInt32(DateTime.Now.ToString("yyyy"));
 
             if(ime == "" || prezime == "" || adresaStanovanja == ""){ 
                 throw new Exception("Niste unijeli ime, prezime ili adresu stanovanja!");
@@ -93,15 +95,15 @@ namespace Zadaca1
             else if(datumRodjenja < DateTime.Now){
                 throw new Exception("Datum rođenja je u budućnosti!");
             }
-            else if(trenutnaGodina - datumRodjenja.ToString("yyyy").Int32.TryParse() < 18){
+            else if(trenutnaGodina - Convert.ToInt32(datumRodjenja.ToString("yyyy")) < 18){
                 throw new Exception("Glasač mora biti punoljetan!");
             }
             else if(!licnaKarta.IsMatch(brojLicneKarte) || brojLicneKarte.Length != 7){ 
                 throw new Exception("Pogrešan unos broja lične karte!");   
             }
-            else if(JMBG.Length != 13 || string.Compare(JMBG.Substring(0,2), datumRodjenja.ToString("dd") != 0
-                    || string.Compare(JMBG.Substring(2,4), datumRodjenja.ToString("MM") != 0
-                    || string.Compare(JMBG.Substring(4,7), datumRodjenja.ToString("yyy") != 0){
+            else if(JMBG.Length != 13 || string.Compare(JMBG.Substring(0,2), datumRodjenja.ToString("dd")) != 0
+                    || string.Compare(JMBG.Substring(2,4), datumRodjenja.ToString("MM")) != 0
+                    || string.Compare(JMBG.Substring(4,7), datumRodjenja.ToString("yyy")) != 0){
                 throw new Exception("JMBG nije validan!");   
             }
         }
