@@ -44,8 +44,7 @@ namespace Zadaca1
                 Console.WriteLine("Unesite broj koji odgovara opciji: \n" +
                     "1 - Glasaj\n" +
                     "2 - Prikaži trenutno stanje izbora\n" +
-                    "3 - Ispiši detaljne informacije o kandidatu\n" +
-                    "4 - Kraj");
+                    "3 - Kraj");
                 int broj = 0;
                 broj = Convert.ToInt32(Console.ReadLine());
                 if (broj == 1)
@@ -128,13 +127,7 @@ namespace Zadaca1
                             glasac.glasajZaNezavisnogKandidata(nezKandidati[redniBrojNezavisnogKandidata - 1]);
                             glasaci.Add(glasac.IdentifikacioniBroj);
                         }
-                        else if (broj == 3)
-                        {
-                            stranke[0].Kandidati[0].Informacije = "Kandidat je bio član stranke X1 od Y1 do Z1, član stranke X2 od Y2 do Z2.";
-                            Console.WriteLine("Hello");
-                            break;
-                        }
-                        else if (broj == 4) break;
+                        else if (broj1 == 3) break;
                         else
                         {
                             Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
@@ -149,10 +142,7 @@ namespace Zadaca1
                 {
                     Console.WriteLine(izbori.dajTrenutnoStanjeIzbornihRezultata());
                 }
-                else if (broj == 3)
-                {
-                    break;
-                }
+                else if (broj == 3) break;
                 else
                 {
                     Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
