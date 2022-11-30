@@ -29,9 +29,6 @@ namespace Zadaca1
         public string Ime { set => ime=value; get => ime; }
         public string Prezime { set => prezime=value; get => prezime; }
         public Stranka Stranka { set => stranka=value; get => stranka; }
-        /*Dodani seteri i geteri za sve atribute.
-         Na taj način smo popravili kvalitetu koda 
-        i omogućili lakše nadogradnje.*/
         
 
         public override bool Equals(object obj)

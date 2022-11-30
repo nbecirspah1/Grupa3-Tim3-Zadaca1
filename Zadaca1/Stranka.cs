@@ -8,7 +8,7 @@ namespace Zadaca1
 {
     public class Stranka
     {
-    //pOSTAVLJENI ogovarajući atributI
+    //Postavljeni ogovarajući atributi
         #region Atributi
         string nazivStranke;
         string informacije;
@@ -17,7 +17,7 @@ namespace Zadaca1
         #endregion
 
         
-        #region KONSTRUKTOR
+        #region Konstruktor
         public Stranka(string nazivStranke, string informacije, List<Kandidat> kandidati)
         {
             this.nazivStranke = nazivStranke;
@@ -28,15 +28,13 @@ namespace Zadaca1
         #endregion
 
         #region Metode
-        /*Metoda dodaje novog kandidata u atribut kandidati, koji je tipa List<Kandidat>*/
+        //Metoda dodaje novog kandidata u atribut kandidati, koji je tipa List<Kandidat>
         public void dodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); }
-        //Method removes candidate which is an argument of this function
+        //Metoda uklanja kandidata koji je proslijedjen kao argument ove funkcije
         public void izbrisiKandidata(Kandidat kandidat) { 
-            if(kandidati.size()==0) return;
-            //if uslov je suvišan i nepotreban
             kandidati.Remove(kandidat); 
         }
-        //Method for votes
+        //Metoda za povecavanje glasova
         public void povecajGlasove() { brojGlasova++; }
 
         public override bool Equals(object obj)
@@ -54,13 +52,11 @@ namespace Zadaca1
         }
         #endregion
 
-        //odgovarajući geteri
+        //Odgovarajući geteri
         #region Properties
         public List<Kandidat> Kandidati { get => kandidati; set => kandidati = value; }
         public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }
         public string NazivStranke { get => nazivStranke; set => nazivStranke = value; }
-        /*Dodani seteri za sve atribute. Ovim putem je popravljena
-        kvaliteta koda i omogućena nadogradnja istog u budućnosti.*/
         #endregion
     }
 }

@@ -131,7 +131,6 @@ namespace Zadaca1
                     {
                         Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                     }
-                    /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
                 }
                 else if (broj == 2)
                 {
@@ -145,13 +144,7 @@ namespace Zadaca1
                 {
                     Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                 }
-                /*Radi veće pokrivenosti slučajeva pogrešnog unosa.*/
             }
-            for (int i = 0; i < glasaci.size(); i++)
-            {
-                Console.WriteLine(glasaci[i]);
-            }
-            //Bespotrebna for petlja
         }
     }
 }
