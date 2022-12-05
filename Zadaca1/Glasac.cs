@@ -42,6 +42,8 @@ namespace Zadaca1
 
         #region Properties
         public string IdentifikacioniBroj { get => identifikacioniBroj; }
+        public string Ime { get => ime; set => ime = value; }
+        public string Prezime { get => prezime; set => prezime = value; }
         #endregion
 
         #region Metode

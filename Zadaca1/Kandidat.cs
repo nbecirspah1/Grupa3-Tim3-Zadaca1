@@ -24,9 +24,7 @@ namespace Zadaca1
         #region Properties
         public string Informacije { set => informacije = value; get => informacije; }
         public int BrojGlasova { set => brojGlasova = value; get => brojGlasova; }
-        public string NazivKandidata { get => ime + " " + prezime; }
-        public string Ime { set => ime = value; get => ime; }
-        public string Prezime { set => prezime = value; get => prezime; }
+        public string NazivKandidata { get => base.Ime + " " + base.Prezime; }
         public Stranka Stranka { set => stranka = value; get => stranka; }
         #endregion
 
@@ -34,7 +32,7 @@ namespace Zadaca1
         public override bool Equals(object obj)
         {
             return obj is Kandidat kandidat &&
-                                             base.IdentifikacioniBroj == (obj as Kandidat).IdentifikacioniBroj;
+                                             IdentifikacioniBroj == (obj as Kandidat).IdentifikacioniBroj;
         }
 
         public void povecajBrojGlasova() { brojGlasova++; }
