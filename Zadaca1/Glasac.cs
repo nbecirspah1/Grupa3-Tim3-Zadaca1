@@ -77,6 +77,7 @@ namespace Zadaca1
             nezavisniKandidat.povecajBrojGlasova();
         }
 
+        //Amina Pandžić
         public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG){
             Regex regex = new(@"[^-a-zA-ZčćžšđČĆŽŠĐ]");
             Regex licnaKarta = new(@"[0-9][0-9][0-9][EJKMT][0-9][0-9][0-9]");

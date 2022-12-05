@@ -39,6 +39,7 @@ namespace Zadaca1
 
         public override int GetHashCode() { return HashCode.Combine(base.IdentifikacioniBroj); }
 
+        //Nejla Bečirspahić
         public void ispisiDetaljneInformacije()
         {
             string informacije1 = informacije;

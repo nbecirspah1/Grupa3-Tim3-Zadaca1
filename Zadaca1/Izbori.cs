@@ -112,6 +112,7 @@ namespace Zadaca1
             return s.ToString();
         }
 
+        //Din Švraka
         public void ispisiRezultate()
         {
             StringBuilder informacije = new();
