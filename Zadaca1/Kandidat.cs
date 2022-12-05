@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Zadaca1
 {
-    public class Kandidat
+    public class Kandidat : Glasac
     {
         #region Atributi
-        string ime;
-        string prezime;
         string informacije;
         int brojGlasova;
         Stranka stranka = null;
         #endregion
 
         #region Konstruktor
-        public Kandidat(string ime, string prezime, Stranka stranka = null)
+        public Kandidat(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG, Stranka stranka = null) : base(ime, prezime, adresaStanovanja, datumRodjenja, brojLicneKarte, JMBG)
         {
-            this.ime = ime;
-            this.prezime = prezime;
             brojGlasova = 0;
             informacije = "";
             this.stranka = stranka;
@@ -41,15 +34,12 @@ namespace Zadaca1
         public override bool Equals(object obj)
         {
             return obj is Kandidat kandidat &&
-                                             ime == kandidat.ime &&
-                   prezime == kandidat.prezime &&
-                                                  informacije == kandidat.informacije &&
-                   brojGlasova == kandidat.brojGlasova && stranka == kandidat.stranka;
+                                             base.IdentifikacioniBroj == (obj as Kandidat).IdentifikacioniBroj;
         }
 
         public void povecajBrojGlasova() { brojGlasova++; }
 
-        public override int GetHashCode() { return HashCode.Combine(ime, prezime, informacije, brojGlasova, stranka); }
+        public override int GetHashCode() { return HashCode.Combine(base.IdentifikacioniBroj); }
 
         public void ispisiDetaljneInformacije()
         {
