@@ -14,6 +14,8 @@ namespace Zadaca1
         string informacije;
         List<Kandidat> kandidati;
         int brojGlasova;
+        string informacijeRukovodstva = "";
+        List<Kandidat> rukovodstvo = new List<Kandidat>();
         #endregion
 
         
@@ -25,6 +27,15 @@ namespace Zadaca1
             this.kandidati = kandidati;
             brojGlasova = 0;
         }
+        public Stranka(string nazivStranke, string informacije, List<Kandidat> kandidati, string informacijeRukovodstva, List<Kandidat> rukovodstvo)
+        {
+            this.nazivStranke = nazivStranke;
+            this.informacije = informacije;
+            this.kandidati = kandidati;
+            this.rukovodstvo = rukovodstvo;
+            this.informacijeRukovodstva = informacijeRukovodstva;
+            brojGlasova = 0;
+        }
         #endregion
 
         #region Metode
@@ -34,8 +45,36 @@ namespace Zadaca1
         public void izbrisiKandidata(Kandidat kandidat) { 
             kandidati.Remove(kandidat); 
         }
+        //Metoda dodaje novog člana rukovodstva
+        public void dodajClanaRukovodstva(Kandidat clan)
+        { rukovodstvo.Add(clan); }
+        //Metoda uklanja člana rukovodstva
+        public void izbrisiClanaRukovodstva(Kandidat clan)
+        {
+            rukovodstvo.Remove(clan);
+        }
         //Metoda za povecavanje glasova
+
         public void povecajGlasove() { brojGlasova++; }
+
+        //Ermin Jamaković - Funkcionalnost 4
+        public void ispisiInformacijeRukovodstva()
+        {
+            int brojGlasova = 0;
+            kandidati.ForEach(kandidat =>
+            {
+                if (rukovodstvo.Contains(kandidat))
+                    brojGlasova += kandidat.BrojGlasova;
+
+            });
+            string ispis = "Ukupan broj glasova: " + brojGlasova + "; Kandidati: ";
+            rukovodstvo.ForEach(clan => {
+                if (!clan.Equals(rukovodstvo[rukovodstvo.Count - 1]))
+                    ispis += "Identifikacioni broj: " + clan.IdentifikacioniBroj + ",";
+            });
+            ispis += "Identifikacioni broj: " + rukovodstvo[rukovodstvo.Count - 1].IdentifikacioniBroj;
+            Console.WriteLine(ispis);
+        }
 
         public override bool Equals(object obj)
         {
@@ -54,6 +93,8 @@ namespace Zadaca1
 
         //Odgovarajući geteri
         #region Properties
+        public string InformacijeRukovostva { get => informacijeRukovodstva; set => informacijeRukovodstva = value; }
+        public List<Kandidat> Rukovodstvo { get => rukovodstvo; set => rukovodstvo = value; }
         public List<Kandidat> Kandidati { get => kandidati; set => kandidati = value; }
         public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }
         public string NazivStranke { get => nazivStranke; set => nazivStranke = value; }

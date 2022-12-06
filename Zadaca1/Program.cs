@@ -8,12 +8,13 @@ namespace Zadaca1
     {
         static void Main(string[] args)
         {
+            
             //Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
-            //Kandidat kandidat = new("Bakir", "Izetbegović", stranka1);
-            //kandidat.Informacije = "Kandidat je bio član stranke X1 od Y1 do Z1, član stranke X2 od Y2 do Z2.";
-            //kandidat.ispisiDetaljneInformacije();
+            //Kandidat kandidat = new Kandidat("bake","bakir","111",Convert.ToDateTime("19/12/1999"),"333E333","1912999222222",stranka1);
+            //stranka1.dodajClanaRukovodstva(kandidat);
+            //stranka1.ispisiInformacijeRukovodstva();
 
-
+            
             List<Stranka> stranke = new List<Stranka>();
 
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
@@ -148,8 +149,7 @@ namespace Zadaca1
                     Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                 }
             }
-
+        
         }
     }
 }
-
