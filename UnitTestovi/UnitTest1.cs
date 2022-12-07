@@ -1,8 +1,59 @@
 ﻿using CsvHelper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using Zadaca1;
 
 namespace UnitTestovi
 {
+    //Ermin Jamaković
+    [TestClass]
+    public class TestiranjeFunkcionalnosti_4
+    {
+        static Stranka stranka;
+        static Kandidat kandidat;
+
+        [ClassInitialize]
+        public static void PočetnaInicijalizacija(TestContext context)
+        {
+            kandidat = new Kandidat("bake", "bakir", "111", Convert.ToDateTime("11/11/1999"), "333E333", "1111999222222");
+        }
+        [TestInitialize]
+        public void InicjalizacijaPrijeSvakogTesta()
+        {
+            stranka = new Stranka("Stranak", "Najbolja");
+        }
+        [TestMethod]
+        public void TestDodavanjeClanaRukovodstva()
+        {
+            stranka.dodajClanaRukovodstva(kandidat);
+            Assert.IsTrue(stranka.Rukovodstvo.Count == 1);
+        }
+        [TestMethod]
+        public void TestBrisanjaClanaRukovodstva()
+        {
+            stranka.dodajClanaRukovodstva(kandidat);
+            stranka.izbrisiClanaRukovodstva(kandidat);
+            Assert.IsFalse(stranka.Rukovodstvo.Contains(kandidat));
+        }
+        [TestMethod]
+        public void TestIspisaInformacijaRukovodstva1()
+        {
+            stranka.dodajKandidata(kandidat);
+            stranka.dodajClanaRukovodstva(kandidat);
+            Assert.AreEqual("Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: " + kandidat.IdentifikacioniBroj,stranka.ispisiInformacijeRukovodstva());
+        }
+        [TestMethod]
+        public void TestIspisaInformacijaRukovodstva2()
+        {
+            Kandidat kandidat2 = new Kandidat("Bake", "Baki", "22", Convert.ToDateTime("22/3/2000"), "111E111", "2203000222222");
+            stranka.dodajKandidata(kandidat);
+            stranka.dodajClanaRukovodstva(kandidat);
+            kandidat2.BrojGlasova = 10;
+            stranka.dodajClanaRukovodstva(kandidat2);
+            stranka.dodajKandidata(kandidat2);
+            Assert.AreEqual("Ukupan broj glasova: 10; Kandidati: Identifikacioni broj: " + kandidat.IdentifikacioniBroj + ",Identifikacioni broj: " + kandidat2.IdentifikacioniBroj, stranka.ispisiInformacijeRukovodstva());
+        }
+    } 
     //Nejla Bečirspahić
     [TestClass]
     public class UnitTest1

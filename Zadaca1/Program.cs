@@ -14,7 +14,7 @@ namespace Zadaca1
             //stranka1.dodajClanaRukovodstva(kandidat);
             //stranka1.ispisiInformacijeRukovodstva();
 
-            
+            /*
             List<Stranka> stranke = new List<Stranka>();
 
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
@@ -149,7 +149,7 @@ namespace Zadaca1
                     Console.WriteLine("Neispravna opcija. Pokušajte ponovo!");
                 }
             }
-        
+        */
         }
     }
 }

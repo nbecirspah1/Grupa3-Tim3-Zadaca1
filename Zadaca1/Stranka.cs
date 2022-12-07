@@ -12,7 +12,7 @@ namespace Zadaca1
         #region Atributi
         string nazivStranke;
         string informacije;
-        List<Kandidat> kandidati;
+        List<Kandidat> kandidati = new List<Kandidat>();
         int brojGlasova;
         string informacijeRukovodstva = "";
         List<Kandidat> rukovodstvo = new List<Kandidat>();
@@ -20,11 +20,12 @@ namespace Zadaca1
 
         
         #region Konstruktor
-        public Stranka(string nazivStranke, string informacije, List<Kandidat> kandidati)
+        public Stranka(string nazivStranke, string informacije, List<Kandidat> kandidati = null)
         {
             this.nazivStranke = nazivStranke;
             this.informacije = informacije;
-            this.kandidati = kandidati;
+            if(kandidati!=null)
+                this.kandidati = kandidati;
             brojGlasova = 0;
         }
         public Stranka(string nazivStranke, string informacije, List<Kandidat> kandidati, string informacijeRukovodstva, List<Kandidat> rukovodstvo)
@@ -40,25 +41,29 @@ namespace Zadaca1
 
         #region Metode
         //Metoda dodaje novog kandidata u atribut kandidati, koji je tipa List<Kandidat>
-        public void dodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); }
+        public void dodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); kandidat.Stranka = this; }
         //Metoda uklanja kandidata koji je proslijedjen kao argument ove funkcije
         public void izbrisiKandidata(Kandidat kandidat) { 
-            kandidati.Remove(kandidat); 
+            kandidati.Remove(kandidat);
+            kandidat.Stranka = null;
         }
         //Metoda dodaje novog člana rukovodstva
         public void dodajClanaRukovodstva(Kandidat clan)
-        { rukovodstvo.Add(clan); }
+        { rukovodstvo.Add(clan);
+            clan.Stranka = this;
+        }
         //Metoda uklanja člana rukovodstva
         public void izbrisiClanaRukovodstva(Kandidat clan)
         {
             rukovodstvo.Remove(clan);
+            clan.Stranka = null;
         }
         //Metoda za povecavanje glasova
 
         public void povecajGlasove() { brojGlasova++; }
 
         //Ermin Jamaković - Funkcionalnost 4
-        public void ispisiInformacijeRukovodstva()
+        public string ispisiInformacijeRukovodstva()
         {
             int brojGlasova = 0;
             kandidati.ForEach(kandidat =>
@@ -73,7 +78,7 @@ namespace Zadaca1
                     ispis += "Identifikacioni broj: " + clan.IdentifikacioniBroj + ",";
             });
             ispis += "Identifikacioni broj: " + rukovodstvo[rukovodstvo.Count - 1].IdentifikacioniBroj;
-            Console.WriteLine(ispis);
+            return ispis;
         }
 
         public override bool Equals(object obj)
