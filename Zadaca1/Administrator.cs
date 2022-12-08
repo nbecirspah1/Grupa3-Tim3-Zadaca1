@@ -21,7 +21,7 @@ namespace Zadaca1
         public bool UnosSifre()
         {
             Console.WriteLine("\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):");
-            for(int i = 0; i < 2; i++)
+            for(int i = 0; i < 3; i++)
             {
                 string sifra = Console.ReadLine();
                 if (sifra.Equals(tajnaSifra)) return true;
