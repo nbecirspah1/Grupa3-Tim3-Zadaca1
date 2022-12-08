@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Zadaca1
 {
@@ -24,7 +22,7 @@ namespace Zadaca1
         #endregion
 
         #region Metode
-        private int brojGlasaca()
+        private int BrojGlasaca()
         {
             int glasaci = 0;
             foreach (Stranka s in stranke)
@@ -37,19 +35,19 @@ namespace Zadaca1
             }
             return glasaci;
         }
-        public void dodajStranku(Stranka stranka) { stranke.Add(stranka); }
-        public void izbrisiStranku(Stranka stranka) { stranke.Remove(stranka); }
-        public void dodajNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Add(kandidat); }
-        public void izbrisiNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Remove(kandidat); }
-        public double dajIzlaznostNaIzbore()
+        public void DodajStranku(Stranka stranka) { stranke.Add(stranka); }
+        public void IzbrisiStranku(Stranka stranka) { stranke.Remove(stranka); }
+        public void DodajNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Add(kandidat); }
+        public void IzbrisiNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Remove(kandidat); }
+        public double DajIzlaznostNaIzbore()
         {
-            return (100 * (brojGlasaca() / (double)brojMogucihGlasaca));
+            return (100 * (BrojGlasaca() / (double)brojMogucihGlasaca));
         }
 
-        public Dictionary<Stranka, int> dajMandatskeStranke()
+        public Dictionary<Stranka, int> DajMandatskeStranke()
         {
             Dictionary<Stranka, int> stranke1 = new();
-            double glasaci = brojGlasaca();
+            double glasaci = BrojGlasaca();
             foreach (Stranka s in stranke)
             {
                 double postotak = (double)s.BrojGlasova / glasaci;
@@ -60,10 +58,10 @@ namespace Zadaca1
             }
             return stranke1;
         }
-        public Dictionary<Kandidat, int> dajMandatskeNezavisneKandidate()
+        public Dictionary<Kandidat, int> DajMandatskeNezavisneKandidate()
         {
             Dictionary<Kandidat, int> kandidati1 = new();
-            double glasaci = brojGlasaca();
+            double glasaci = BrojGlasaca();
             foreach (Kandidat k in nezavisniKandidati)
             {
                 double postotak = (double)k.BrojGlasova / glasaci;
@@ -76,7 +74,7 @@ namespace Zadaca1
         }
 
         // Ova metoda vraća listu kandidata koji su osvojili 20% glasova od ukupnih glasova stranke kojoj pripadaju
-        public List<Kandidat> dajMandatskeKandidate(Stranka s)
+        public List<Kandidat> DajMandatskeKandidate(Stranka s)
         {
             List<Kandidat> kandidati1 = new();
             foreach (Kandidat k in s.Kandidati)
@@ -88,24 +86,24 @@ namespace Zadaca1
             }
             return kandidati1;
         }
-        public string dajTrenutnoStanjeIzbornihRezultata()
+        public string DajTrenutnoStanjeIzbornihRezultata()
         {
             StringBuilder s = new();
             s.Append("Trenutno stanje izbornih rezultata:\n\n");
-            s.Append("Izlaznost na izbore: ").Append(dajIzlaznostNaIzbore().ToString()).Append("%\n\n");
+            s.Append("Izlaznost na izbore: ").Append(DajIzlaznostNaIzbore().ToString()).Append("%\n\n");
             s.Append("Mandatske stranke i njihovi rezultati:\n");
-            foreach (var str in dajMandatskeStranke())
+            foreach (var str in DajMandatskeStranke())
             {
                 s.Append(str.Key.NazivStranke).Append(" ").Append(str.Value).Append("%\n");
                 s.Append("Kandidati koji su osvojili mandate unutar ove stranke:\n");
-                foreach (Kandidat k in dajMandatskeKandidate(str.Key))
+                foreach (Kandidat k in DajMandatskeKandidate(str.Key))
                 {
                     s.Append(k.NazivKandidata).Append("\n");
                 }
             }
             s.Append("\n");
             s.Append("Mandatski nezavisni kandidati i njihovi rezultati:\n");
-            foreach (var str in dajMandatskeNezavisneKandidate())
+            foreach (var str in DajMandatskeNezavisneKandidate())
             {
                 s.Append(str.Key.NazivKandidata).Append(" ").Append(str.Value).Append("%\n");
             }
@@ -113,19 +111,19 @@ namespace Zadaca1
         }
 
         //Din Švraka
-        public void ispisiRezultate()
+        public void IspisiRezultate()
         {
             StringBuilder informacije = new();
             foreach (var s in stranke)
             {
                 informacije.Append(s.NazivStranke).Append(":\n");
                 informacije.Append("Ukupan broj glasova: ").Append(s.BrojGlasova);
-                var broj = (double)s.BrojGlasova * 100 / brojGlasaca();
+                var broj = (double)s.BrojGlasova * 100 / BrojGlasaca();
                 broj = (int)broj;
                 informacije.Append("\nPostotak osvojenih glasova: ").Append(broj).Append('%');
                 informacije.Append('\n');
 
-                var mandatskiKandidati = dajMandatskeKandidate(s);
+                var mandatskiKandidati = DajMandatskeKandidate(s);
                 informacije.Append("Broj kandidata koji su osvojili mandate: ").Append(mandatskiKandidati.Count);
                 informacije.Append("\nMandatski kandidati:\n");
 

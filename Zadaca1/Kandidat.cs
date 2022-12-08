@@ -35,12 +35,12 @@ namespace Zadaca1
                                              IdentifikacioniBroj == (obj as Kandidat).IdentifikacioniBroj;
         }
 
-        public void povecajBrojGlasova() { brojGlasova++; }
+        public void PovecajBrojGlasova() { brojGlasova++; }
 
         public override int GetHashCode() { return HashCode.Combine(base.IdentifikacioniBroj); }
 
         //Nejla Bečirspahić
-        public void ispisiDetaljneInformacije()
+        public void IspisiDetaljneInformacije()
         {
             string informacije1 = informacije;
             Regex regex = new(@"Kandidat je bio ");

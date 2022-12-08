@@ -18,15 +18,15 @@ namespace Zadaca1
             List<Stranka> stranke = new List<Stranka>();
 
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
-            stranka1.dodajKandidata(new Kandidat("Bakir", "Izetbegović", stranka1));
-            stranka1.dodajKandidata(new Kandidat("Sebija", "Izetbegović", stranka1));
-            stranka1.dodajKandidata(new Kandidat("Šefik", "Džaferagić", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", stranka1));
             stranke.Add(stranka1);
 
             Stranka stranka2 = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
-            stranka2.dodajKandidata(new Kandidat("Milorad", "Dodik", stranka2));
-            stranka2.dodajKandidata(new Kandidat("Željka", "Cvijanović", stranka2));
-            stranka2.dodajKandidata(new Kandidat("Dragutin", "Dragutinić", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", stranka2));
             stranke.Add(stranka2);
 
             List<Kandidat> nezKandidati = new();
@@ -101,7 +101,7 @@ namespace Zadaca1
                             string kandidatiS = Console.ReadLine();
                             if (kandidatiS == "0")
                             {
-                                glasac.glasajZaStranku(stranke[redniBrojStranke - 1], new List<Kandidat>());
+                                glasac.GlasajZaStranku(stranke[redniBrojStranke - 1], new List<Kandidat>());
                             }
                             else
                             {
@@ -111,7 +111,7 @@ namespace Zadaca1
                                 {
                                     izabraniKandidati.Add(stranke[redniBrojStranke - 1].Kandidati[redniBroj - 1]);
                                 }
-                                glasac.glasajZaStranku(stranke[redniBrojStranke - 1], izabraniKandidati);
+                                glasac.GlasajZaStranku(stranke[redniBrojStranke - 1], izabraniKandidati);
                             }
                             glasaci.Add(glasac.IdentifikacioniBroj);
                         }
@@ -125,7 +125,7 @@ namespace Zadaca1
                             }
                             Console.WriteLine("Unesite redni broj nezavisnog kandidata za kojeg želite da glasate: ");
                             int redniBrojNezavisnogKandidata = Convert.ToInt32(Console.ReadLine());
-                            glasac.glasajZaNezavisnogKandidata(nezKandidati[redniBrojNezavisnogKandidata - 1]);
+                            glasac.GlasajZaNezavisnogKandidata(nezKandidati[redniBrojNezavisnogKandidata - 1]);
                             glasaci.Add(glasac.IdentifikacioniBroj);
                         }
                         else if (broj1 == 3) break;
@@ -141,7 +141,7 @@ namespace Zadaca1
                 }
                 else if (broj == 2)
                 {
-                    Console.WriteLine(izbori.dajTrenutnoStanjeIzbornihRezultata());
+                    Console.WriteLine(izbori.DajTrenutnoStanjeIzbornihRezultata());
                 }
                 else if (broj == 3) break;
                 else

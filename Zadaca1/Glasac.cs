@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Zadaca1
 {
@@ -47,14 +45,14 @@ namespace Zadaca1
         #endregion
 
         #region Metode
-        public void glasajZaStranku(Stranka stranka, List<Kandidat> kandidati)
+        public void GlasajZaStranku(Stranka stranka, List<Kandidat> kandidati)
         {
             glasaoZaStranku = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
             if (!glasaoZaStranku)
             {
                 throw new Exception("Već ste glasali!");
             }
-            stranka.povecajGlasove();
+            stranka.PovecajGlasove();
             if (kandidati.Count() != 0)
             {
                 foreach (Kandidat k in kandidati)
@@ -63,18 +61,18 @@ namespace Zadaca1
                     {
                         throw new Exception("Morate glasati za kandidate iz izabrane stranke!");
                     }
-                    stranka.Kandidati[stranka.Kandidati.IndexOf(k)].povecajBrojGlasova();
+                    stranka.Kandidati[stranka.Kandidati.IndexOf(k)].PovecajBrojGlasova();
                 }
             }
         }
-        public void glasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
+        public void GlasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
         {
             glasaoZaNezavisnogKandidata = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
             if (!glasaoZaNezavisnogKandidata)
             {
                 throw new Exception("Već ste glasali!");
             }
-            nezavisniKandidat.povecajBrojGlasova();
+            nezavisniKandidat.PovecajBrojGlasova();
         }
 
         //Amina Pandžić
