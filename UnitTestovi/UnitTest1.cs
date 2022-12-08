@@ -299,7 +299,7 @@ namespace UnitTestovi
             [TestMethod]
             public void TestIspisaInformacijaRukovodstva1()
             {
-                stranka.dodajKandidata(kandidat);
+                stranka.DodajKandidata(kandidat);
                 stranka.dodajClanaRukovodstva(kandidat);
                 Assert.AreEqual("Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: " + kandidat.IdentifikacioniBroj, stranka.ispisiInformacijeRukovodstva());
             }
@@ -307,11 +307,11 @@ namespace UnitTestovi
             public void TestIspisaInformacijaRukovodstva2()
             {
                 Kandidat kandidat2 = new Kandidat("Bake", "Baki", "22", Convert.ToDateTime("22/3/2000"), "111E111", "2203000222222");
-                stranka.dodajKandidata(kandidat);
+                stranka.DodajKandidata(kandidat);
                 stranka.dodajClanaRukovodstva(kandidat);
                 kandidat2.BrojGlasova = 10;
                 stranka.dodajClanaRukovodstva(kandidat2);
-                stranka.dodajKandidata(kandidat2);
+                stranka.DodajKandidata(kandidat2);
                 Assert.AreEqual("Ukupan broj glasova: 10; Kandidati: Identifikacioni broj: " + kandidat.IdentifikacioniBroj + ",Identifikacioni broj: " + kandidat2.IdentifikacioniBroj, stranka.ispisiInformacijeRukovodstva());
             }
         }
