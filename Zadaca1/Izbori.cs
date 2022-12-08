@@ -94,18 +94,18 @@ namespace Zadaca1
             s.Append("Mandatske stranke i njihovi rezultati:\n");
             foreach (var str in DajMandatskeStranke())
             {
-                s.Append(str.Key.NazivStranke).Append(" ").Append(str.Value).Append("%\n");
-                s.Append("Kandidati koji su osvojili mandate unutar ove stranke:\n");
+                s.Append(str.Key.NazivStranke).Append(" - ").Append(str.Value).Append("%\n");
+                s.Append("\nKandidati koji su osvojili mandate unutar " + str.Key.NazivStranke + " stranke:\n");
                 foreach (Kandidat k in DajMandatskeKandidate(str.Key))
                 {
                     s.Append(k.NazivKandidata).Append("\n");
                 }
+                s.Append("\n");
             }
-            s.Append("\n");
             s.Append("Mandatski nezavisni kandidati i njihovi rezultati:\n");
             foreach (var str in DajMandatskeNezavisneKandidate())
             {
-                s.Append(str.Key.NazivKandidata).Append(" ").Append(str.Value).Append("%\n");
+                s.Append(str.Key.NazivKandidata).Append(" - ").Append(str.Value).Append("%\n");
             }
             return s.ToString();
         }
