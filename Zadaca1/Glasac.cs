@@ -47,12 +47,11 @@ namespace Zadaca1
         #region Metode
         public void GlasajZaStranku(Stranka stranka, List<Kandidat> kandidati)
         {
-            glasaoZaStranku = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
-            if (!glasaoZaStranku)
+            bool imaPravoGlasa = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
+            if (!imaPravoGlasa)
             {
                 throw new Exception("Već ste glasali!");
             }
-            stranka.PovecajGlasove();
             if (kandidati.Count() != 0)
             {
                 foreach (Kandidat k in kandidati)
@@ -61,9 +60,15 @@ namespace Zadaca1
                     {
                         throw new Exception("Morate glasati za kandidate iz izabrane stranke!");
                     }
+                    
+                }
+                foreach (Kandidat k in kandidati)
+                {
                     stranka.Kandidati[stranka.Kandidati.IndexOf(k)].PovecajBrojGlasova();
                 }
             }
+            glasaoZaStranku = true;
+            stranka.PovecajGlasove();
         }
         public void GlasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
         {
