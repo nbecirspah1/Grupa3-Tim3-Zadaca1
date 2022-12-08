@@ -67,11 +67,12 @@ namespace Zadaca1
         }
         public void GlasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
         {
-            glasaoZaNezavisnogKandidata = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
-            if (!glasaoZaNezavisnogKandidata)
+            bool imaPravoGlasa = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
+            if (!imaPravoGlasa)
             {
                 throw new Exception("Već ste glasali!");
             }
+            glasaoZaNezavisnogKandidata = true;
             nezavisniKandidat.PovecajBrojGlasova();
         }
 
