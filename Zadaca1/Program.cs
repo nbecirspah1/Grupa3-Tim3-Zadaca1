@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Zadaca1
@@ -18,23 +19,21 @@ namespace Zadaca1
             List<Stranka> stranke = new();
 
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
-            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", "Adresa1", new DateTime(1955,1,1), "111E111", "0101955111111", stranka1));
-            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", "Adresa2", new DateTime(1955,1,2), "222E222", "0201955222222", stranka1));
-            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", "Adresa3", new DateTime(1955,1,3), "333E333", "0301955333333", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", stranka1));
             stranke.Add(stranka1);
 
             Stranka stranka2 = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
-            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", "Adresa4", new DateTime(1955,1,4), "444E444", "0401955444444", stranka2));
-            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", "Adresa5", new DateTime(1955,1,5), "555E555", "0501955555555", stranka2));
-            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", "Adresa6", new DateTime(1955,1,6), "666E666", "0601955666666", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", stranka2));
             stranke.Add(stranka2);
 
-            List<Kandidat> nezavisniKandidati = new()
-            {
-                new Kandidat("Meho", "Mehić", "Adresa7", new DateTime(1955, 1, 7), "777E777", "0701955777777"),
-                new Kandidat("Huse", "Husić", "Adresa8", new DateTime(1955, 1, 8), "888E888", "0801955888888"),
-                new Kandidat("Neko", "Nekić", "Adresa9", new DateTime(1955, 1, 9), "999E999", "0901955999999")
-            };
+            List<Kandidat> nezKandidati = new();
+            nezKandidati.Add(new("Nezavisni", "Kandidat1", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat2", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat3", null));
 
             Izbori izbori = new(stranke, nezavisniKandidati, 100);
 

@@ -40,7 +40,7 @@ namespace Zadaca1
         public override int GetHashCode() { return HashCode.Combine(base.IdentifikacioniBroj); }
 
         //Nejla Bečirspahić
-        public void IspisiDetaljneInformacije()
+        public string IspisiDetaljneInformacije()
         {
             string informacije1 = informacije;
             Regex regex = new(@"Kandidat je bio ");
@@ -55,9 +55,9 @@ namespace Zadaca1
                 var datum2 = groups[3].Value;
                 datum2 = Regex.Replace(datum2, @"\.", "");
                 informacije2.Append("Stranka: ").Append(groups[1].Value).Append(", Članstvo od: ").Append(groups[2].Value)
-                            .Append(", Članstvo do: ").Append(datum2).Append("\n");
+                            .Append(", Članstvo do: ").Append(datum2).Append('\n');
             }
-            Console.WriteLine(informacije2.ToString());
+            return informacije2.ToString();
         }
         #endregion
     }
