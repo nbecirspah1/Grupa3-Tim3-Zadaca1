@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
-using System.Text.RegularExpressions;
+using System.Xml;
 using Zadaca1;
 
 namespace UnitTestovi
@@ -89,7 +90,7 @@ namespace UnitTestovi
                 {
                     var values = ((IDictionary<String, Object>)row).Values;
                     var elements = values.Select(elem => elem.ToString()).ToList();
-                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.Parse(elements[3]), elements[4], elements[5]};
+                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.Parse(elements[3]), elements[4], elements[5] };
                 }
             }
         }
@@ -259,5 +260,118 @@ namespace UnitTestovi
             Assert.AreEqual(kandidat.IspisiDetaljneInformacije(), ispis);
         }
         #endregion
+    }
+
+    //Ermin Jamaković
+    [TestClass]
+    public class UnitTest4
+    {
+        #region Unit testovi
+        [TestClass]
+        public class TestiranjeFunkcionalnosti_4
+        {
+            static Stranka stranka;
+            static Kandidat kandidat;
+
+            [ClassInitialize]
+            public static void PočetnaInicijalizacija(TestContext context)
+            {
+                kandidat = new Kandidat("bake", "bakir", "111", Convert.ToDateTime("11/11/1999"), "333E333", "1111999222222");
+            }
+            [TestInitialize]
+            public void InicjalizacijaPrijeSvakogTesta()
+            {
+                stranka = new Stranka("Stranak", "Najbolja");
+            }
+            [TestMethod]
+            public void TestDodavanjeClanaRukovodstva()
+            {
+                stranka.dodajClanaRukovodstva(kandidat);
+                Assert.IsTrue(stranka.Rukovodstvo.Count == 1);
+            }
+            [TestMethod]
+            public void TestBrisanjaClanaRukovodstva()
+            {
+                stranka.dodajClanaRukovodstva(kandidat);
+                stranka.izbrisiClanaRukovodstva(kandidat);
+                Assert.IsFalse(stranka.Rukovodstvo.Contains(kandidat));
+            }
+            [TestMethod]
+            public void TestIspisaInformacijaRukovodstva1()
+            {
+                stranka.dodajKandidata(kandidat);
+                stranka.dodajClanaRukovodstva(kandidat);
+                Assert.AreEqual("Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: " + kandidat.IdentifikacioniBroj, stranka.ispisiInformacijeRukovodstva());
+            }
+            [TestMethod]
+            public void TestIspisaInformacijaRukovodstva2()
+            {
+                Kandidat kandidat2 = new Kandidat("Bake", "Baki", "22", Convert.ToDateTime("22/3/2000"), "111E111", "2203000222222");
+                stranka.dodajKandidata(kandidat);
+                stranka.dodajClanaRukovodstva(kandidat);
+                kandidat2.BrojGlasova = 10;
+                stranka.dodajClanaRukovodstva(kandidat2);
+                stranka.dodajKandidata(kandidat2);
+                Assert.AreEqual("Ukupan broj glasova: 10; Kandidati: Identifikacioni broj: " + kandidat.IdentifikacioniBroj + ",Identifikacioni broj: " + kandidat2.IdentifikacioniBroj, stranka.ispisiInformacijeRukovodstva());
+            }
+        }
+        #endregion
+
+        #region Inline testovi
+        static IEnumerable<object[]> Stranka
+        {
+            get
+            {
+                return new[]
+                {
+                 new object[] { "Stranka", "BiH", new List<Kandidat>(){new Kandidat("Ime", "Prezime", "Adresa", DateTime.Parse("11/11/2000"),"222E222","1111000222222"), new Kandidat("Ime", "Prezime", "Adresa", DateTime.Parse("11/11/1999"), "222E222", "1111999222222")}
+                 , "Rukovodstvo", new List<Kandidat>(){ new Kandidat("Ime", "Prezime", "Adresa", DateTime.Parse("11/11/2000"), "222E222", "1111000222222")}, "Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: ImPrAd112211" }
+                };
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("Stranka")]
+        public void Test1(string naziv, string info, List<Kandidat> kandidati, string infoRukovodstvo, List<Kandidat> rukovodstvo, string ispis)
+        {
+            Stranka stranka = new Stranka(naziv, info, kandidati, infoRukovodstvo, rukovodstvo);
+            Assert.AreEqual(ispis, stranka.ispisiInformacijeRukovodstva());
+        }
+        #endregion
+
+        #region XML testovi
+        public static IEnumerable<object[]> UčitajPodatkeXML()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("C:\\Users\\DT User2\\source\\repos\\nbecirspah1\\Grupa3-Tim3-Zadaca1\\UnitTestovi\\Stranka.xml");
+            foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+            {
+                List<string> elements = new List<string>();
+                foreach (XmlNode innerNode in node)
+                {
+                    elements.Add(innerNode.InnerText);
+                }
+                Console.WriteLine(elements[2]);
+                yield return new object[] { elements[0], elements[1],
+elements[2], elements[3], elements[4]};
+            }
+
+        }
+        static IEnumerable<object[]> StrankaXML
+        {
+            get
+            {
+                return UčitajPodatkeXML();
+            }
+        }
+        [TestMethod]
+        [DynamicData("StrankaXML")]
+        public void Test2XML()
+        {
+
+        }
+
+        #endregion
+
     }
 }
