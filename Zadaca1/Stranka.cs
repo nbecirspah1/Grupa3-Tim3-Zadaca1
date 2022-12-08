@@ -38,16 +38,25 @@ namespace Zadaca1
 
         #region Metode
         //Metoda dodaje novog kandidata u atribut kandidati, koji je tipa List<Kandidat>
-        public void DodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); }
+        public void dodajKandidata(Kandidat kandidat) 
+        { 
+            kandidati.Add(kandidat);
+            kandidat.Stranka = this;
+        }
         //Metoda uklanja kandidata koji je proslijedjen kao argument ove funkcije
-        public void izbrisiKandidata(Kandidat kandidat) { 
-            kandidati.Remove(kandidat); 
+        public void izbrisiKandidata(Kandidat kandidat) 
+        { 
+            kandidati.Remove(kandidat);
+            kandidat.Stranka = null;
         }
         //Metoda dodaje novog člana rukovodstva
         public void dodajClanaRukovodstva(Kandidat clan)
-        { rukovodstvo.Add(clan); }
+        { 
+            rukovodstvo.Add(clan);
+            clan.Stranka = this;
+        }
         //Metoda uklanja člana rukovodstva
-        public void IzbrisiClanaRukovodstva(Kandidat clan)
+        public void izbrisiClanaRukovodstva(Kandidat clan)
         {
             rukovodstvo.Remove(clan);
             clan.Stranka = null;
@@ -57,7 +66,7 @@ namespace Zadaca1
         public void PovecajGlasove() { brojGlasova++; }
 
         //Ermin Jamaković - Funkcionalnost 4
-        public void ispisiInformacijeRukovodstva()
+        public string ispisiInformacijeRukovodstva()
         {
             int brojGlasova = 0;
             kandidati.ForEach(kandidat =>
@@ -81,12 +90,14 @@ namespace Zadaca1
                    nazivStranke == stranka.nazivStranke &&
                    informacije == stranka.informacije &&
                    EqualityComparer<List<Kandidat>>.Default.Equals(kandidati, stranka.kandidati) &&
+                   EqualityComparer<List<Kandidat>>.Default.Equals(rukovodstvo, stranka.rukovodstvo) &&
+                   informacijeRukovodstva == stranka.informacijeRukovodstva &&
                    brojGlasova == stranka.brojGlasova;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(nazivStranke, informacije, kandidati, brojGlasova);
+            return HashCode.Combine(nazivStranke, informacije, kandidati, brojGlasova, rukovodstvo, informacijeRukovodstva);
         }
         #endregion
 

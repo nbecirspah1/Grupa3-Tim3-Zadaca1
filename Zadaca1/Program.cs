@@ -9,12 +9,7 @@ namespace Zadaca1
     {
         static void Main(string[] args)
         {
-            
-            //Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
-            //Kandidat kandidat = new Kandidat("bake","bakir","111",Convert.ToDateTime("19/12/1999"),"333E333","1912999222222",stranka1);
-            //stranka1.dodajClanaRukovodstva(kandidat);
-            //stranka1.ispisiInformacijeRukovodstva();
-
+            /*
             
             List<Stranka> stranke = new();
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
@@ -164,8 +159,7 @@ namespace Zadaca1
                 {
                     Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
                 }
-            }
-        */
+            }*/
         }
     }
 }
