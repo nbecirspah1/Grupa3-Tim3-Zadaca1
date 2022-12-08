@@ -18,6 +18,9 @@ namespace Zadaca1
         string identifikacioniBroj;
         bool glasaoZaStranku;
         bool glasaoZaNezavisnogKandidata;
+        List<Kandidat> stranackiKandidati;
+        Stranka stranka;
+        Kandidat nezavisniKandidat;
         #endregion
 
         #region Konstruktor
@@ -35,6 +38,7 @@ namespace Zadaca1
                                 + brojLicneKarte.Substring(0, 2) + JMBG.Substring(0, 2);
             glasaoZaStranku = false;
             glasaoZaNezavisnogKandidata = false;
+            stranackiKandidati = new List<Kandidat>();
         }
         #endregion
 
@@ -65,9 +69,11 @@ namespace Zadaca1
                 foreach (Kandidat k in kandidati)
                 {
                     stranka.Kandidati[stranka.Kandidati.IndexOf(k)].PovecajBrojGlasova();
+                    stranackiKandidati.Add(k);
                 }
             }
             glasaoZaStranku = true;
+            this.stranka = stranka;
             stranka.PovecajGlasove();
         }
         public void GlasajZaNezavisnogKandidata(Kandidat nezavisniKandidat)
@@ -78,8 +84,13 @@ namespace Zadaca1
                 throw new Exception("Već ste glasali!");
             }
             glasaoZaNezavisnogKandidata = true;
+            this.nezavisniKandidat = nezavisniKandidat;
             nezavisniKandidat.PovecajBrojGlasova();
         }
+
+        public List<Kandidat> DajSveStranackeKandidate() { return stranackiKandidati; }
+        public Stranka DajStranku() { return stranka; }
+        public Kandidat DajNezavisnogKandidata() { return nezavisniKandidat; }
 
         //Amina Pandžić
         public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG){
@@ -114,8 +125,6 @@ namespace Zadaca1
                 throw new Exception("JMBG nije validan!");   
             }
         }
-
-
         #endregion
     }
 }

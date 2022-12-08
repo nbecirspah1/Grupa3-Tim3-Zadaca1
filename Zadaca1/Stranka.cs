@@ -53,6 +53,7 @@ namespace Zadaca1
         //Metoda za povecavanje glasova
 
         public void PovecajGlasove() { brojGlasova++; }
+        public void SmanjiGlasove() { brojGlasova--; }
 
         //Ermin Jamaković - Funkcionalnost 4
         public void IspisiInformacijeRukovodstva()
