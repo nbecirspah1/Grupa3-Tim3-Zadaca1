@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zadaca1
 {
@@ -41,29 +38,26 @@ namespace Zadaca1
 
         #region Metode
         //Metoda dodaje novog kandidata u atribut kandidati, koji je tipa List<Kandidat>
-        public void dodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); kandidat.Stranka = this; }
+        public void DodajKandidata(Kandidat kandidat) { kandidati.Add(kandidat); }
         //Metoda uklanja kandidata koji je proslijedjen kao argument ove funkcije
         public void izbrisiKandidata(Kandidat kandidat) { 
-            kandidati.Remove(kandidat);
-            kandidat.Stranka = null;
+            kandidati.Remove(kandidat); 
         }
         //Metoda dodaje novog člana rukovodstva
         public void dodajClanaRukovodstva(Kandidat clan)
-        { rukovodstvo.Add(clan);
-            clan.Stranka = this;
-        }
+        { rukovodstvo.Add(clan); }
         //Metoda uklanja člana rukovodstva
-        public void izbrisiClanaRukovodstva(Kandidat clan)
+        public void IzbrisiClanaRukovodstva(Kandidat clan)
         {
             rukovodstvo.Remove(clan);
             clan.Stranka = null;
         }
         //Metoda za povecavanje glasova
 
-        public void povecajGlasove() { brojGlasova++; }
+        public void PovecajGlasove() { brojGlasova++; }
 
         //Ermin Jamaković - Funkcionalnost 4
-        public string ispisiInformacijeRukovodstva()
+        public void ispisiInformacijeRukovodstva()
         {
             int brojGlasova = 0;
             kandidati.ForEach(kandidat =>
