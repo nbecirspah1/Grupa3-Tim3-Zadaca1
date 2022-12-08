@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Zadaca1
@@ -18,21 +19,21 @@ namespace Zadaca1
             List<Stranka> stranke = new List<Stranka>();
 
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
-            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", stranka1));
-            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", stranka1));
-            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", "Adresa", Convert.ToDateTime("12/12/1954"),"123E123","1212954123123", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", "Adresa", Convert.ToDateTime("12/12/1954"), "123E123", "1212954123123", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", "Adresa", Convert.ToDateTime("12/12/1954"), "123E123", "1212954123123", stranka1));
             stranke.Add(stranka1);
 
             Stranka stranka2 = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
-            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", stranka2));
-            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", stranka2));
-            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", "Adresa", Convert.ToDateTime("12/12/1954"), "123E123", "1212954123123", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", "Adresa", Convert.ToDateTime("12/12/1954"), "123E123", "1212954123123", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", "Adresa", Convert.ToDateTime("12/12/1954"), "123E123", "1212954123123", stranka2));
             stranke.Add(stranka2);
 
             List<Kandidat> nezKandidati = new();
-            nezKandidati.Add(new("Nezavisni", "Kandidat1", null));
-            nezKandidati.Add(new("Nezavisni", "Kandidat2", null));
-            nezKandidati.Add(new("Nezavisni", "Kandidat3", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat1", "Adresa", Convert.ToDateTime("20/12/1954"), "123E123", "2012954123123", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat2", "Adresa", Convert.ToDateTime("21/12/1954"), "123E123", "2112954123123", null));
+            nezKandidati.Add(new("Nezavisni", "Kandidat3", "Adresa", Convert.ToDateTime("22/12/1954"), "123E123", "2212954123123", null));
 
 
 
