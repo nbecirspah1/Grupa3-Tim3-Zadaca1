@@ -28,27 +28,28 @@ namespace Zadaca1
         {
             return glasaci.Count;
         }
-        public void DodajGlasaca(Glasac glasac) { if(glasaci.Count < brojMogucihGlasaca) glasaci.Add(glasac); }
-        public void UkloniGlasaca(Glasac glasac) {
+        public void DodajGlasaca(Glasac glasac) { if (glasaci.Count < brojMogucihGlasaca) glasaci.Add(glasac); }
+        public void UkloniGlasaca(Glasac glasac)
+        {
             List<Kandidat> sviStranackiKandidati = glasac.DajSveStranackeKandidate();
             Stranka stranka = glasac.DajStranku();
             Kandidat nezavisniKandidat = glasac.DajNezavisnogKandidata();
-            if(sviStranackiKandidati != null)
+            if (sviStranackiKandidati != null)
             {
-                foreach(Kandidat stranakciKandidat in sviStranackiKandidati)
+                foreach (Kandidat stranakciKandidat in sviStranackiKandidati)
                 {
                     stranakciKandidat.SmanjiBrojGlasova();
                 }
             }
-            if(stranka != null)
+            if (stranka != null)
             {
                 stranka.SmanjiGlasove();
             }
-            if(nezavisniKandidat!= null)
+            if (nezavisniKandidat != null)
             {
                 nezavisniKandidat.SmanjiBrojGlasova();
             }
-            glasaci.Remove(glasac); 
+            glasaci.Remove(glasac);
         }
         public Glasac DajKonkretnogGlasaca(string identifikacioniBroj) { return glasaci.Find(glasac => glasac.IdentifikacioniBroj.Equals(identifikacioniBroj)); }
         public List<Glasac> DajSveGlasace() { return glasaci; }
@@ -67,7 +68,7 @@ namespace Zadaca1
             foreach (Stranka s in stranke)
             {
                 double postotak = 0;
-                if(glasaci.Count > 0) postotak = (double)s.BrojGlasova / glasaci.Count;
+                if (glasaci.Count > 0) postotak = (double)s.BrojGlasova / glasaci.Count;
                 if (postotak > 0.02)
                 {
                     stranke1.Add(s, (int)(100 * postotak));
@@ -81,7 +82,7 @@ namespace Zadaca1
             foreach (Kandidat k in nezavisniKandidati)
             {
                 double postotak = 0;
-                if(glasaci.Count > 0) postotak = (double)k.BrojGlasova / glasaci.Count;
+                if (glasaci.Count > 0) postotak = (double)k.BrojGlasova / glasaci.Count;
                 if (postotak > 0.02)
                 {
                     kandidati1.Add(k, (int)(100 * postotak));
@@ -134,9 +135,15 @@ namespace Zadaca1
             foreach (var s in stranke)
             {
                 informacije.Append(s.NazivStranke).Append(":\n");
-                informacije.Append("Ukupan broj glasova: ").Append(s.BrojGlasova);
-                var broj = (double)s.BrojGlasova * 100 / BrojGlasaca();
-                broj = (int)broj;
+                var brojGlasovaUStranci = s.BrojGlasova;
+                informacije.Append("Ukupan broj glasova: ").Append(brojGlasovaUStranci);
+                double broj = 0;
+                var brojGlasaca = BrojGlasaca();
+                if (brojGlasaca != 0)
+                {
+                    broj = (double)brojGlasovaUStranci * 100 / brojGlasaca;
+                    broj = (int)broj;
+                }
                 informacije.Append("\nPostotak osvojenih glasova: ").Append(broj).Append('%');
                 informacije.Append('\n');
 
@@ -148,7 +155,10 @@ namespace Zadaca1
                 {
                     informacije.Append(k.Ime).Append(' ').Append(k.Prezime).Append('\n');
                     informacije.Append("Broj glasova kandidata: ").Append(k.BrojGlasova).Append('\n');
-                    broj = (double)k.BrojGlasova * 100 / s.BrojGlasova;
+                    if (brojGlasovaUStranci != 0)
+                    {
+                        broj = (double)k.BrojGlasova * 100 / brojGlasovaUStranci;
+                    }
                     informacije.Append("Postotak osvojenih glasova kandidata: ").Append((int)broj).Append("%\n");
                 }
             }

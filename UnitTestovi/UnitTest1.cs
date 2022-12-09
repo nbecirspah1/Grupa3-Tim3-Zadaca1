@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using System.Text;
 using System.Xml;
 using Zadaca1;
 
@@ -193,15 +194,24 @@ namespace UnitTestovi
     [TestClass]
     public class UnitTest3
     {
-        static Izbori izbori;
-        static List<Stranka> stranke;
-        static List<Kandidat> nezavisniKandidati;
-        static List<Glasac> glasaci;
-
-        [TestInitialize]
-        public static void InicijalizacijaPrijeSvakogTesta()
+        #region Inline testovi
+        static IEnumerable<object[]> Izbori
         {
-            stranke = new();
+            get
+            {
+                return new[]
+                {
+                 new object[] { 0, "SDA", "broj glasova: 0", "glasova: 0%", "mandate: 0", "SNSD", "broj glasova: 0", "glasova: 0%", "mandate: 0" },
+                 new object[] { 4, "SDA", "broj glasova: 3", "glasova: 75%", "mandate: 3", "SNSD", "broj glasova: 1", "glasova: 25%", "mandate: 2" }
+                 };
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("Izbori")]
+        public void Test1(int brojGlasaca, string prvaStranka, string prviGlasovi, string prviPostotak, string prviBrojMandatskihKandidata, string drugaStranka, string drugiGlasovi, string drugiPostotak, string drugiBrojMandatskihKandidata)
+        {
+            List<Stranka> stranke = new();
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
             stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", "Adresa1", new DateTime(1955, 1, 1), "111E111", "0101955111111", stranka1));
             stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", "Adresa2", new DateTime(1955, 1, 2), "222E222", "0201955222222", stranka1));
@@ -214,14 +224,7 @@ namespace UnitTestovi
             stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", "Adresa6", new DateTime(1955, 1, 6), "666E666", "0601955666666", stranka2));
             stranke.Add(stranka2);
 
-            nezavisniKandidati = new()
-            {
-                new Kandidat("Meho", "Mehić", "Adresa7", new DateTime(1955, 1, 7), "777E777", "0701955777777"),
-                new Kandidat("Huse", "Husić", "Adresa8", new DateTime(1955, 1, 8), "888E888", "0801955888888"),
-                new Kandidat("Neko", "Nekić", "Adresa9", new DateTime(1955, 1, 9), "999E999", "0901955999999")
-            };
-
-            glasaci = new()
+            List<Glasac> glasaci = new()
             {
                 new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("01/01/2001"),"111E111","0101001111111"),
                 new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("02/02/2002"),"222E222","0202002222222"),
@@ -229,31 +232,37 @@ namespace UnitTestovi
                 new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("04/04/2004"),"444E444","0404004444444")
             };
 
-            izbori = new(stranke, nezavisniKandidati, 100);
-        }
+            Izbori izbori = new(stranke, new(), 100);
 
-        #region Inline testovi
-        static IEnumerable<object[]> Izbori
-        {
-            get
-            {
-                return new[]
-                {
-                 new object[] { 0, "" },
-                 new object[] { 4, "" }
-                 };
-            }
-        }
-
-        [TestMethod]
-        [DynamicData("Izbori")]
-        public void Test1(int brojGlasaca, string ispis)
-        {
             for (int i = 0; i < brojGlasaca; i++)
             {
-                glasaci[i].GlasajZaStranku(stranke[i], stranke[i].Kandidati);
+                if (i == 0)
+                {
+                    glasaci[0].GlasajZaStranku(stranke[0], stranke[0].Kandidati);
+                }
+                else if (i == 1)
+                {
+                    glasaci[1].GlasajZaStranku(stranke[0], new() { stranke[0].Kandidati[0], stranke[0].Kandidati[1] });
+                }
+                else if (i == 2)
+                {
+                    glasaci[2].GlasajZaStranku(stranke[0], new() { stranke[0].Kandidati[0] });
+                }
+                else if (i == 3)
+                {
+                    glasaci[3].GlasajZaStranku(stranke[1], new() { stranke[1].Kandidati[0], stranke[1].Kandidati[1] });
+                }
+                izbori.DodajGlasaca(glasaci[i]);
             }
-            Assert.AreEqual(izbori.IspisiRezultate(), ispis);
+            var ispis = izbori.IspisiRezultate();
+            StringAssert.Contains(ispis, prvaStranka);
+            StringAssert.Contains(ispis, prviGlasovi);
+            StringAssert.Contains(ispis, prviPostotak);
+            StringAssert.Contains(ispis, prviBrojMandatskihKandidata);
+            StringAssert.Contains(ispis, drugaStranka);
+            StringAssert.Contains(ispis, drugiGlasovi);
+            StringAssert.Contains(ispis, drugiPostotak);
+            StringAssert.Contains(ispis, drugiBrojMandatskihKandidata);
         }
         #endregion
 
@@ -276,20 +285,67 @@ namespace UnitTestovi
                 {
                     var values = ((IDictionary<String, Object>)row).Values;
                     var elements = values.Select(elem => elem.ToString()).ToList();
-                    yield return new object[] { elements[0], elements[1] };
+                    yield return new object[] { Int32.Parse(elements[0]), elements[1], elements[2], elements[3], elements[4], elements[5], elements[6], elements[7], elements[8] };
                 }
             }
         }
 
         [TestMethod]
         [DynamicData("IzboriCSV")]
-        public void Test2(int brojGlasaca, string ispis)
+        public void Test2(int brojGlasaca, string prvaStranka, string prviGlasovi, string prviPostotak, string prviBrojMandatskihKandidata, string drugaStranka, string drugiGlasovi, string drugiPostotak, string drugiBrojMandatskihKandidata)
         {
+            List<Stranka> stranke = new();
+            Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
+            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", "Adresa1", new DateTime(1955, 1, 1), "111E111", "0101955111111", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", "Adresa2", new DateTime(1955, 1, 2), "222E222", "0201955222222", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", "Adresa3", new DateTime(1955, 1, 3), "333E333", "0301955333333", stranka1));
+            stranke.Add(stranka1);
+
+            Stranka stranka2 = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
+            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", "Adresa4", new DateTime(1955, 1, 4), "444E444", "0401955444444", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", "Adresa5", new DateTime(1955, 1, 5), "555E555", "0501955555555", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", "Adresa6", new DateTime(1955, 1, 6), "666E666", "0601955666666", stranka2));
+            stranke.Add(stranka2);
+
+            List<Glasac> glasaci = new()
+            {
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("01/01/2001"),"111E111","0101001111111"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("02/02/2002"),"222E222","0202002222222"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("03/03/2003"),"333E333","0303003333333"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("04/04/2004"),"444E444","0404004444444")
+            };
+
+            Izbori izbori = new(stranke, new(), 100);
+
             for (int i = 0; i < brojGlasaca; i++)
             {
-                glasaci[i].GlasajZaStranku(stranke[i], stranke[i].Kandidati);
+                if (i == 0)
+                {
+                    glasaci[0].GlasajZaStranku(stranke[0], stranke[0].Kandidati);
+                }
+                else if (i == 1)
+                {
+                    glasaci[1].GlasajZaStranku(stranke[0], new() { stranke[0].Kandidati[0], stranke[0].Kandidati[1] });
+                }
+                else if (i == 2)
+                {
+                    glasaci[2].GlasajZaStranku(stranke[0], new() { stranke[0].Kandidati[0] });
+                }
+                else if (i == 3)
+                {
+                    glasaci[3].GlasajZaStranku(stranke[1], new() { stranke[1].Kandidati[0], stranke[1].Kandidati[1] });
+                }
+                izbori.DodajGlasaca(glasaci[i]);
             }
-            Assert.AreEqual(izbori.IspisiRezultate(), ispis);
+            var ispis = izbori.IspisiRezultate();
+            StringAssert.Contains(ispis, prvaStranka);
+            StringAssert.Contains(ispis, prviGlasovi);
+            StringAssert.Contains(ispis, prviPostotak);
+            StringAssert.Contains(ispis, prviBrojMandatskihKandidata);
+            StringAssert.Contains(ispis, drugaStranka);
+            StringAssert.Contains(ispis, drugiGlasovi);
+            StringAssert.Contains(ispis, drugiPostotak);
+            StringAssert.Contains(ispis, drugiBrojMandatskihKandidata);
         }
         #endregion
     }
