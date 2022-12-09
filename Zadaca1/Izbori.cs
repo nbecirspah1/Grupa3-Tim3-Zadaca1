@@ -9,32 +9,49 @@ namespace Zadaca1
         #region Atributi
         List<Stranka> stranke;
         List<Kandidat> nezavisniKandidati;
+        List<Glasac> glasaci;
         int brojMogucihGlasaca;
         #endregion
 
         #region Konstruktor
-        public Izbori(List<Stranka> stranke, List<Kandidat> nezavisniKandidati, int brojMogucihKandidata)
+        public Izbori(List<Stranka> stranke, List<Kandidat> nezavisniKandidati, int brojMogucihGlasaca)
         {
             this.stranke = stranke;
             this.nezavisniKandidati = nezavisniKandidati;
-            this.brojMogucihGlasaca = brojMogucihKandidata;
+            this.glasaci = new List<Glasac>();
+            this.brojMogucihGlasaca = brojMogucihGlasaca;
         }
         #endregion
 
         #region Metode
         private int BrojGlasaca()
         {
-            int glasaci = 0;
-            foreach (Stranka s in stranke)
-            {
-                glasaci += s.BrojGlasova;
-            }
-            foreach (Kandidat k in nezavisniKandidati)
-            {
-                glasaci += k.BrojGlasova;
-            }
-            return glasaci;
+            return glasaci.Count;
         }
+        public void DodajGlasaca(Glasac glasac) { if(glasaci.Count < brojMogucihGlasaca) glasaci.Add(glasac); }
+        public void UkloniGlasaca(Glasac glasac) {
+            List<Kandidat> sviStranackiKandidati = glasac.DajSveStranackeKandidate();
+            Stranka stranka = glasac.DajStranku();
+            Kandidat nezavisniKandidat = glasac.DajNezavisnogKandidata();
+            if(sviStranackiKandidati != null)
+            {
+                foreach(Kandidat stranakciKandidat in sviStranackiKandidati)
+                {
+                    stranakciKandidat.SmanjiBrojGlasova();
+                }
+            }
+            if(stranka != null)
+            {
+                stranka.SmanjiGlasove();
+            }
+            if(nezavisniKandidat!= null)
+            {
+                nezavisniKandidat.SmanjiBrojGlasova();
+            }
+            glasaci.Remove(glasac); 
+        }
+        public Glasac DajKonkretnogGlasaca(string identifikacioniBroj) { return glasaci.Find(glasac => glasac.IdentifikacioniBroj.Equals(identifikacioniBroj)); }
+        public List<Glasac> DajSveGlasace() { return glasaci; }
         public void DodajStranku(Stranka stranka) { stranke.Add(stranka); }
         public void IzbrisiStranku(Stranka stranka) { stranke.Remove(stranka); }
         public void DodajNezavisnogKandidata(Kandidat kandidat) { nezavisniKandidati.Add(kandidat); }
@@ -47,10 +64,10 @@ namespace Zadaca1
         public Dictionary<Stranka, int> DajMandatskeStranke()
         {
             Dictionary<Stranka, int> stranke1 = new();
-            double glasaci = BrojGlasaca();
             foreach (Stranka s in stranke)
             {
-                double postotak = (double)s.BrojGlasova / glasaci;
+                double postotak = 0;
+                if(glasaci.Count > 0) postotak = (double)s.BrojGlasova / glasaci.Count;
                 if (postotak > 0.02)
                 {
                     stranke1.Add(s, (int)(100 * postotak));
@@ -61,10 +78,10 @@ namespace Zadaca1
         public Dictionary<Kandidat, int> DajMandatskeNezavisneKandidate()
         {
             Dictionary<Kandidat, int> kandidati1 = new();
-            double glasaci = BrojGlasaca();
             foreach (Kandidat k in nezavisniKandidati)
             {
-                double postotak = (double)k.BrojGlasova / glasaci;
+                double postotak = 0;
+                if(glasaci.Count > 0) postotak = (double)k.BrojGlasova / glasaci.Count;
                 if (postotak > 0.02)
                 {
                     kandidati1.Add(k, (int)(100 * postotak));
@@ -111,7 +128,7 @@ namespace Zadaca1
         }
 
         //Din Švraka
-        public void IspisiRezultate()
+        public string IspisiRezultate()
         {
             StringBuilder informacije = new();
             foreach (var s in stranke)
@@ -136,7 +153,7 @@ namespace Zadaca1
                 }
             }
             informacije.Append('\n');
-            Console.WriteLine(informacije.ToString());
+            return informacije.ToString();
         }
         #endregion
 

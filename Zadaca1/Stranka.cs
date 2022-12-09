@@ -38,7 +38,7 @@ namespace Zadaca1
 
         #region Metode
         //Metoda dodaje novog kandidata u atribut kandidati, koji je tipa List<Kandidat>
-        public void dodajKandidata(Kandidat kandidat) 
+        public void DodajKandidata(Kandidat kandidat) 
         { 
             kandidati.Add(kandidat);
             kandidat.Stranka = this;
@@ -64,6 +64,7 @@ namespace Zadaca1
         //Metoda za povecavanje glasova
 
         public void PovecajGlasove() { brojGlasova++; }
+        public void SmanjiGlasove() { brojGlasova--; }
 
         //Ermin Jamaković - Funkcionalnost 4
         public string ispisiInformacijeRukovodstva()

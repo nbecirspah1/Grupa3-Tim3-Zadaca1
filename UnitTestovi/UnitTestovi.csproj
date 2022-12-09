@@ -27,6 +27,9 @@
     <None Update="Glasaci2.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Izbori.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Kandidati.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace Zadaca1
@@ -9,8 +8,6 @@ namespace Zadaca1
     {
         static void Main(string[] args)
         {
-            /*
-            
             List<Stranka> stranke = new();
             Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
             stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", "Adresa1", new DateTime(1955, 1, 1), "111E111", "0101955111111", stranka1));
@@ -33,133 +30,168 @@ namespace Zadaca1
 
             Izbori izbori = new(stranke, nezavisniKandidati, 100);
 
-            List<string> glasaci = new();
-
             for (; ; )
             {
-                Console.WriteLine("Unesite broj koji odgovara opciji:\n" +
-                    "1. Glasaj\n" +
-                    "2. Prikaži trenutno stanje izbora\n" +
-                    "3. Kraj\n");
-                int broj = 0;
-                broj = Convert.ToInt32(Console.ReadLine());
-                if (broj == 1)
+                Console.WriteLine("Da li ste glasac ili administrator (pritisnite 0 za kraj programa):\n1. Glasac\n2. Administrator\n");
+                int role = Convert.ToInt32(Console.ReadLine());
+                if (role == 1)
                 {
-                    Console.WriteLine("Izabrali ste opciju glasanja.\nMolimo vas da popunite slijedeće podatke.");
-                    Console.WriteLine("\nIme:");
-                    string ime = Console.ReadLine();
-                    Console.WriteLine("\nPrezime:");
-                    string prezime = Console.ReadLine();
-                    Console.WriteLine("\nAdresa stanovanja:");
-                    string adresaStanovanja = Console.ReadLine();
-                    Console.WriteLine("\nDatum rođenja (mm/dd/gggg):");
-                    DateTime datum = Convert.ToDateTime(Console.ReadLine());
-                    Console.WriteLine("\nBroj lične karte:");
-                    string brojLicneKarte = Console.ReadLine();
-                    Console.WriteLine("\nJMBG:");
-                    string JMBG = Console.ReadLine();
-
-                    try
+                    for (; ; )
                     {
-                        Glasac glasac = new(ime, prezime, adresaStanovanja, datum, brojLicneKarte, JMBG);
-                        if (glasaci.Contains(glasac.IdentifikacioniBroj))
+                        Console.WriteLine("Unesite broj koji odgovara opciji:\n" +
+                            "1. Glasaj\n" +
+                            "2. Prikaži trenutno stanje izbora\n" +
+                            "3. Odustani\n");
+                        int broj = 0;
+                        broj = Convert.ToInt32(Console.ReadLine());
+                        if (broj == 1)
                         {
-                            Console.WriteLine("\nVeć ste glasali!\n");
-                            continue;
-                        }
+                            Console.WriteLine("Izabrali ste opciju glasanja.\nMolimo vas da popunite slijedeće podatke.");
+                            Console.WriteLine("\nIme:");
+                            string ime = Console.ReadLine();
+                            Console.WriteLine("\nPrezime:");
+                            string prezime = Console.ReadLine();
+                            Console.WriteLine("\nAdresa stanovanja:");
+                            string adresaStanovanja = Console.ReadLine();
+                            Console.WriteLine("\nDatum rođenja (mm/dd/gggg):");
+                            DateTime datum = Convert.ToDateTime(Console.ReadLine());
+                            Console.WriteLine("\nBroj lične karte:");
+                            string brojLicneKarte = Console.ReadLine();
+                            Console.WriteLine("\nJMBG:");
+                            string JMBG = Console.ReadLine();
 
-                        Console.WriteLine("\nUnesite broj koji odgovara opciji:\n" +
-                       "1. Glasaj za stranku\n" +
-                       "2. Glasaj za nezavisnog kandidata\n" +
-                       "3. Kraj glasanja\n");
+                            try
+                            {
+                                Glasac glasac = new(ime, prezime, adresaStanovanja, datum, brojLicneKarte, JMBG);
+                                string identifikacioniBroj = glasac.IdentifikacioniBroj;
+                                if (izbori.DajKonkretnogGlasaca(identifikacioniBroj) != null)
+                                {
+                                    Console.WriteLine("\nVeć ste glasali!\n");
+                                    continue;
+                                }
 
-                        int broj1 = 0;
-                        broj1 = Convert.ToInt32(Console.ReadLine());
-                        if (broj1 == 1)
-                        {
-                            Console.WriteLine("Izabrali ste opciju glasanja za stranku.\nMolimo vas da izaberete jednu od ponuđenih:\n");
-                            int i = 1;
-                            List<Kandidat> kandidati = new();
-                            foreach (Stranka s in stranke)
-                            {
-                                Console.WriteLine("--- " + i + ". " + s.NazivStranke + "---");
-                                i++;
-                                kandidati = s.Kandidati;
-                                int j = 1;
-                                foreach (Kandidat k in kandidati)
+                                Console.WriteLine("\nUnesite broj koji odgovara opciji:\n" +
+                               "1. Glasaj za stranku\n" +
+                               "2. Glasaj za nezavisnog kandidata\n" +
+                               "3. Odustani od glasanja\n");
+
+                                int broj1 = 0;
+                                broj1 = Convert.ToInt32(Console.ReadLine());
+                                if (broj1 == 1)
                                 {
-                                    Console.WriteLine(j + ". " + k.NazivKandidata);
-                                    j++;
+                                    Console.WriteLine("Izabrali ste opciju glasanja za stranku.\nMolimo vas da izaberete jednu od ponuđenih:\n");
+                                    int i = 1;
+                                    List<Kandidat> kandidati = new();
+                                    foreach (Stranka s in stranke)
+                                    {
+                                        Console.WriteLine("--- " + i + ". " + s.NazivStranke + "---");
+                                        i++;
+                                        kandidati = s.Kandidati;
+                                        int j = 1;
+                                        foreach (Kandidat k in kandidati)
+                                        {
+                                            Console.WriteLine(j + ". " + k.NazivKandidata);
+                                            j++;
+                                        }
+                                        Console.WriteLine();
+                                    }
+                                    Console.WriteLine("\nUnesite redni broj stranke za koju želite da glasate:");
+                                    int redniBrojStranke = Convert.ToInt32(Console.ReadLine());
+                                    if (redniBrojStranke < 1 || redniBrojStranke > stranke.Count)
+                                    {
+                                        Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
+                                        continue;
+                                    }
+                                    Console.WriteLine("\nUnesite redne brojeve kandidata za koje želite da glasate odvojenih zarezom (izaberite 0 ako samo za stranku glasate):");
+                                    string kandidatiS = Console.ReadLine();
+                                    Console.WriteLine();
+                                    if (kandidatiS == "0")
+                                    {
+                                        glasac.GlasajZaStranku(stranke[redniBrojStranke - 1], new List<Kandidat>());
+                                    }
+                                    else
+                                    {
+                                        var numbers = kandidatiS?.Split(',')?.Select(Int32.Parse)?.ToList();
+                                        List<Kandidat> izabraniKandidati = new();
+                                        foreach (int redniBroj in numbers)
+                                        {
+                                            izabraniKandidati.Add(stranke[redniBrojStranke - 1].Kandidati[redniBroj - 1]);
+                                        }
+                                        glasac.GlasajZaStranku(stranke[redniBrojStranke - 1], izabraniKandidati);
+                                    }
+                                    izbori.DodajGlasaca(glasac);
                                 }
-                                Console.WriteLine();
-                            }
-                            Console.WriteLine("\nUnesite redni broj stranke za koju želite da glasate:");
-                            int redniBrojStranke = Convert.ToInt32(Console.ReadLine());
-                            if(redniBrojStranke < 1 || redniBrojStranke > stranke.Count)
-                            {
-                                Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
-                                continue;
-                            }
-                            Console.WriteLine("\nUnesite redne brojeve kandidata za koje želite da glasate odvojenih zarezom (izaberite 0 ako samo za stranku glasate):");
-                            string kandidatiS = Console.ReadLine();
-                            Console.WriteLine();
-                            if (kandidatiS == "0")
-                            {
-                                glasac.GlasajZaStranku(stranke[redniBrojStranke - 1], new List<Kandidat>());
-                            }
-                            else
-                            {
-                                var numbers = kandidatiS?.Split(',')?.Select(Int32.Parse)?.ToList();
-                                List<Kandidat> izabraniKandidati = new();
-                                foreach (int redniBroj in numbers)
+                                else if (broj1 == 2)
                                 {
-                                    izabraniKandidati.Add(stranke[redniBrojStranke - 1].Kandidati[redniBroj - 1]);
+                                    int i = 1;
+                                    Console.WriteLine("Izabrali ste opciju glasanja za nezavisnog kandidata.\nMolimo vas da izaberete jednog od ponuđenih:\n");
+                                    foreach (Kandidat k in nezavisniKandidati)
+                                    {
+                                        Console.WriteLine("--- " + i + ". " + k.NazivKandidata + "---");
+                                        i++;
+                                    }
+                                    Console.WriteLine("\nUnesite redni broj nezavisnog kandidata za kojeg želite da glasate:");
+                                    int redniBrojNezavisnogKandidata = Convert.ToInt32(Console.ReadLine());
+                                    if (redniBrojNezavisnogKandidata < 1 || redniBrojNezavisnogKandidata > nezavisniKandidati.Count)
+                                    {
+                                        Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo.\n");
+                                        continue;
+                                    }
+                                    glasac.GlasajZaNezavisnogKandidata(nezavisniKandidati[redniBrojNezavisnogKandidata - 1]);
+                                    izbori.DodajGlasaca(glasac);
+                                    Console.WriteLine();
                                 }
-                                glasac.GlasajZaStranku(stranke[redniBrojStranke - 1], izabraniKandidati);
+                                else if (broj1 == 3) break;
+                                else
+                                {
+                                    Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
+                                }
                             }
-                            glasaci.Add(glasac.IdentifikacioniBroj);
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("\nGreška! " + e.Message + "\nPokušajte ponovo.\n");
+                            }
                         }
-                        else if (broj1 == 2)
+                        else if (broj == 2)
                         {
-                            int i = 1;
-                            Console.WriteLine("Izabrali ste opciju glasanja za nezavisnog kandidata.\nMolimo vas da izaberete jednog od ponuđenih:\n");
-                            foreach (Kandidat k in nezavisniKandidati)
-                            {
-                                Console.WriteLine("--- " + i + ". " + k.NazivKandidata + "---");
-                                i++;
-                            }
-                            Console.WriteLine("\nUnesite redni broj nezavisnog kandidata za kojeg želite da glasate:");
-                            int redniBrojNezavisnogKandidata = Convert.ToInt32(Console.ReadLine());
-                            if (redniBrojNezavisnogKandidata < 1 || redniBrojNezavisnogKandidata > nezavisniKandidati.Count)
-                            {
-                                Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo.\n");
-                                continue;
-                            }
-                            glasac.GlasajZaNezavisnogKandidata(nezavisniKandidati[redniBrojNezavisnogKandidata - 1]);
-                            glasaci.Add(glasac.IdentifikacioniBroj);
-                            Console.WriteLine();
+                            Console.WriteLine(izbori.DajTrenutnoStanjeIzbornihRezultata());
                         }
-                        else if (broj1 == 3) break;
+                        else if (broj == 3) break;
                         else
                         {
                             Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
                         }
                     }
-                    catch (Exception e)
+                }
+                else if(role == 2)
+                {
+                    Console.WriteLine("Pozdrav Admin. Da li želite poništiti nečiji glas:");
+                    Console.WriteLine("1. DA\n2. NE\n");
+                    int ponistiGlas = Convert.ToInt32(Console.ReadLine());
+                    if(ponistiGlas == 1)
                     {
-                        Console.WriteLine("\nGreška! " + e.Message + "\nPokušajte ponovo.\n");
+                        Administrator admin = new(izbori);
+                        admin.PonistiGlas();
+                    }
+                    else if(ponistiGlas == 2)
+                    {
+                        Console.WriteLine("Odustali ste od poništavanja glasa.\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
                     }
                 }
-                else if (broj == 2)
+                else if(role == 0)
                 {
-                    Console.WriteLine(izbori.DajTrenutnoStanjeIzbornihRezultata());
+                    Console.WriteLine("\nGasimo sistem...");
+                    Environment.Exit(0);
                 }
-                else if (broj == 3) break;
                 else
                 {
                     Console.WriteLine("\nOpcija ne postoji. Pokušajte ponovo!\n");
                 }
-            }*/
+            }
         }
     }
 }

@@ -31,11 +31,11 @@ namespace Zadaca1
         #region Metode
         public override bool Equals(object obj)
         {
-            return obj is Kandidat kandidat &&
-                                             IdentifikacioniBroj == (obj as Kandidat).IdentifikacioniBroj;
+            return obj is Kandidat kandidat && IdentifikacioniBroj == (obj as Kandidat).IdentifikacioniBroj;
         }
 
         public void PovecajBrojGlasova() { brojGlasova++; }
+        public void SmanjiBrojGlasova() { brojGlasova--; }
 
         public override int GetHashCode() { return HashCode.Combine(base.IdentifikacioniBroj); }
 
