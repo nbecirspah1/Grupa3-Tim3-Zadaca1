@@ -347,13 +347,27 @@ namespace UnitTestovi
             foreach (XmlNode node in doc.DocumentElement.ChildNodes)
             {
                 List<string> elements = new List<string>();
+                List<Kandidat> kandidati = new List<Kandidat>();
+                List<Kandidat> ruko = new List<Kandidat>();
+                bool k = true;
                 foreach (XmlNode innerNode in node)
                 {
-                    elements.Add(innerNode.InnerText);
-                }
-                Console.WriteLine(elements[2]);
+                    foreach (XmlNode kandidat in innerNode.ChildNodes)
+                    {
+                        List<string> parametri = new List<string>();
+                        Console.WriteLine(kandidat);
+                        foreach (XmlNode para in kandidat.ChildNodes)
+                            parametri.Add(para.InnerText);
+                        
+                    }
+
+                    if (kandidati.Count == 0  || ruko.Count == 0)
+                        elements.Add(innerNode.InnerText);
+                    else
+                        k = false;
+                }               
                 yield return new object[] { elements[0], elements[1],
-elements[2], elements[3], elements[4]};
+kandidati, elements[2], ruko};
             }
 
         }
