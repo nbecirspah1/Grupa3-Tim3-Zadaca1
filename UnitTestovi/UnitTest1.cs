@@ -193,38 +193,72 @@ namespace UnitTestovi
     [TestClass]
     public class UnitTest3
     {
+        static Izbori izbori;
+        static List<Stranka> stranke;
+        static List<Kandidat> nezavisniKandidati;
+        static List<Glasac> glasaci;
+
+        [TestInitialize]
+        public static void InicijalizacijaPrijeSvakogTesta()
+        {
+            stranke = new();
+            Stranka stranka1 = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
+            stranka1.DodajKandidata(new Kandidat("Bakir", "Izetbegović", "Adresa1", new DateTime(1955, 1, 1), "111E111", "0101955111111", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Sebija", "Izetbegović", "Adresa2", new DateTime(1955, 1, 2), "222E222", "0201955222222", stranka1));
+            stranka1.DodajKandidata(new Kandidat("Šefik", "Džaferagić", "Adresa3", new DateTime(1955, 1, 3), "333E333", "0301955333333", stranka1));
+            stranke.Add(stranka1);
+
+            Stranka stranka2 = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
+            stranka2.DodajKandidata(new Kandidat("Milorad", "Dodik", "Adresa4", new DateTime(1955, 1, 4), "444E444", "0401955444444", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Željka", "Cvijanović", "Adresa5", new DateTime(1955, 1, 5), "555E555", "0501955555555", stranka2));
+            stranka2.DodajKandidata(new Kandidat("Dragutin", "Dragutinić", "Adresa6", new DateTime(1955, 1, 6), "666E666", "0601955666666", stranka2));
+            stranke.Add(stranka2);
+
+            nezavisniKandidati = new()
+            {
+                new Kandidat("Meho", "Mehić", "Adresa7", new DateTime(1955, 1, 7), "777E777", "0701955777777"),
+                new Kandidat("Huse", "Husić", "Adresa8", new DateTime(1955, 1, 8), "888E888", "0801955888888"),
+                new Kandidat("Neko", "Nekić", "Adresa9", new DateTime(1955, 1, 9), "999E999", "0901955999999")
+            };
+
+            glasaci = new()
+            {
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("01/01/2001"),"111E111","0101001111111"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("02/02/2002"),"222E222","0202002222222"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("03/03/2003"),"333E333","0303003333333"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("04/04/2004"),"444E444","0404004444444")
+            };
+
+            izbori = new(stranke, nezavisniKandidati, 100);
+        }
+
         #region Inline testovi
-        static IEnumerable<object[]> Kandidati
+        static IEnumerable<object[]> Izbori
         {
             get
             {
                 return new[]
                 {
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123",
-                 "0101996170001", "Kandidat je bio član stranke SDA od 17/10/2010 do 19/11/2011, član stranke SDP od 12/12/2012 do 13/12/2015.",
-                 "Stranka: SDA, Članstvo od: 17/10/2010, Članstvo do: 19/11/2011\nStranka: SDP, Članstvo od: 12/12/2012, Članstvo do: 13/12/2015\n"},
-                 new object[] { "Amina", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123",
-                 "0101996170001", "Kandidat je bio član stranke Stranka demokratske akcije od 18/10/2011 do 19/11/2013, član stranke Demokratska fronta od 12/12/2013 do 13/12/2016.",
-                 "Stranka: Stranka demokratske akcije, Članstvo od: 18/10/2011, Članstvo do: 19/11/2013\nStranka: Demokratska fronta, Članstvo od: 12/12/2013, Članstvo do: 13/12/2016\n"}
+                 new object[] { 0, "" },
+                 new object[] { 4, "" }
                  };
             }
         }
 
         [TestMethod]
-        [DynamicData("Kandidati")]
-        public void Test1(string ime, string prezime, string adresa, DateTime
-     datumRodjenja, string brojLK, string JMBG, string info, string ispis)
+        [DynamicData("Izbori")]
+        public void Test1(int brojGlasaca, string ispis)
         {
-            Kandidat kandidat = new(ime, prezime, adresa, datumRodjenja, brojLK, JMBG)
+            for (int i = 0; i < brojGlasaca; i++)
             {
-                Informacije = info
-            };
-            Assert.AreEqual(kandidat.IspisiDetaljneInformacije(), ispis);
+                glasaci[i].GlasajZaStranku(stranke[i], stranke[i].Kandidati);
+            }
+            Assert.AreEqual(izbori.IspisiRezultate(), ispis);
         }
         #endregion
 
         #region Testovi CSV
-        static IEnumerable<object[]> KandidatiCSV
+        static IEnumerable<object[]> IzboriCSV
         {
             get
             {
@@ -234,7 +268,7 @@ namespace UnitTestovi
 
         public static IEnumerable<object[]> UčitajPodatkeCSV()
         {
-            using (var reader = new StreamReader("Kandidati.csv"))
+            using (var reader = new StreamReader("Izbori.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var rows = csv.GetRecords<dynamic>();
@@ -242,22 +276,20 @@ namespace UnitTestovi
                 {
                     var values = ((IDictionary<String, Object>)row).Values;
                     var elements = values.Select(elem => elem.ToString()).ToList();
-                    elements[7] = elements[7].Replace("$", "\n");
-                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.Parse(elements[3]), elements[4], elements[5], elements[6], elements[7] };
+                    yield return new object[] { elements[0], elements[1] };
                 }
             }
         }
 
         [TestMethod]
-        [DynamicData("KandidatiCSV")]
-        public void Test2(string ime, string prezime, string adresa, DateTime
-     datumRodjenja, string brojLK, string JMBG, string info, string ispis)
+        [DynamicData("IzboriCSV")]
+        public void Test2(int brojGlasaca, string ispis)
         {
-            Kandidat kandidat = new(ime, prezime, adresa, datumRodjenja, brojLK, JMBG)
+            for (int i = 0; i < brojGlasaca; i++)
             {
-                Informacije = info
-            };
-            Assert.AreEqual(kandidat.IspisiDetaljneInformacije(), ispis);
+                glasaci[i].GlasajZaStranku(stranke[i], stranke[i].Kandidati);
+            }
+            Assert.AreEqual(izbori.IspisiRezultate(), ispis);
         }
         #endregion
     }

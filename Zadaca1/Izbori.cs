@@ -128,7 +128,7 @@ namespace Zadaca1
         }
 
         //Din Švraka
-        public void IspisiRezultate()
+        public string IspisiRezultate()
         {
             StringBuilder informacije = new();
             foreach (var s in stranke)
@@ -153,7 +153,7 @@ namespace Zadaca1
                 }
             }
             informacije.Append('\n');
-            Console.WriteLine(informacije.ToString());
+            return informacije.ToString();
         }
         #endregion
 
