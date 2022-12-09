@@ -432,16 +432,43 @@ namespace UnitTestovi
         {
             XmlDocument doc = new XmlDocument();
             doc.Load("C:\\Users\\DT User2\\source\\repos\\nbecirspah1\\Grupa3-Tim3-Zadaca1\\UnitTestovi\\Stranka.xml");
-            foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+            XmlNodeList strankeXML = doc.SelectNodes("//Stranke/Stranka");
+            XmlNodeList kandidatiXML = doc.SelectNodes("//Stranke/Stranka/Kandidati");
+            XmlNodeList rukovodstvoXML = doc.SelectNodes("//Stranke/Stranka/Rukovodstvo");
+
+            for (int i = 0; i < strankeXML.Count; i++)
             {
-                List<string> elements = new List<string>();
-                foreach (XmlNode innerNode in node)
+                XmlNode s = strankeXML[i];
+                XmlNode kan = kandidatiXML[i];
+                XmlNode ruk = rukovodstvoXML[i];
+                string naziv = s.ChildNodes.Item(0).InnerText.Trim();
+                string info = s.ChildNodes.Item(1).InnerText.Trim();
+                List<Kandidat> kandidati = new List<Kandidat>();
+                XmlNodeList lista = kan.SelectNodes("Kandidat");
+                foreach (XmlNode kanidat in lista)
                 {
-                    elements.Add(innerNode.InnerText);
+                    string ime = kanidat.SelectSingleNode("Ime").InnerText.Trim();
+                    string prezime = kanidat.SelectSingleNode("Prezime").InnerText.Trim();
+                    string adresa = kanidat.SelectSingleNode("Adresa").InnerText.Trim();
+                    string datum = kanidat.SelectSingleNode("DatumRodenja").InnerText.Trim();
+                    string bjk = kanidat.SelectSingleNode("BrojLicneKarte").InnerText.Trim();
+                    string jmbg = kanidat.SelectSingleNode("JMBG").InnerText.Trim();
+                    kandidati.Add(new Kandidat(ime, prezime, adresa, DateTime.Parse(datum), bjk, jmbg));
                 }
-                Console.WriteLine(elements[2]);
-                yield return new object[] { elements[0], elements[1],
-elements[2], elements[3], elements[4]};
+                List<Kandidat> rukovodstvo = new List<Kandidat>();
+                XmlNodeList lista2 = ruk.SelectNodes("Kandidat");
+                foreach (XmlNode kanidat in lista2)
+                {
+                    string ime = kanidat.SelectSingleNode("Ime").InnerText.Trim();
+                    string prezime = kanidat.SelectSingleNode("Prezime").InnerText.Trim();
+                    string adresa = kanidat.SelectSingleNode("Adresa").InnerText.Trim();
+                    string datum = kanidat.SelectSingleNode("DatumRodenja").InnerText.Trim();
+                    string bjk = kanidat.SelectSingleNode("BrojLicneKarte").InnerText.Trim();
+                    string jmbg = kanidat.SelectSingleNode("JMBG").InnerText.Trim();
+                    rukovodstvo.Add(new Kandidat(ime, prezime, adresa, DateTime.Parse(datum), bjk, jmbg));
+                }
+                string infoR = s.ChildNodes.Item(3).InnerText.Trim();
+                yield return new object[] { naziv, info, kandidati, infoR, rukovodstvo };
             }
 
         }
@@ -454,9 +481,10 @@ elements[2], elements[3], elements[4]};
         }
         [TestMethod]
         [DynamicData("StrankaXML")]
-        public void Test2XML()
+        public void Test2XML(string naziv, string info, List<Kandidat> kandidati, string infoR, List<Kandidat> rukovodstvo)
         {
-
+            Stranka stranka = new Stranka(naziv, info, kandidati, infoR, rukovodstvo);
+            Assert.AreEqual("Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: ImPrAd112211,Identifikacioni broj: ImPrAd222222", stranka.ispisiInformacijeRukovodstva());
         }
 
         #endregion
