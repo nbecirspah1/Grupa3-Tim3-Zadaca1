@@ -1,7 +1,5 @@
 ﻿using CsvHelper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
-using System.Text;
 using System.Xml;
 using Zadaca1;
 
@@ -489,5 +487,35 @@ namespace UnitTestovi
 
         #endregion
 
+    }
+
+    //Test-Driven Development
+    [TestClass]
+    public class UnitTest5
+    {
+        [TestMethod]
+        public void TestZamjenskiObjekat()
+        {
+            Fake fake = new()
+            {
+                IDBrojevi = new()
+                {
+                    "AaBbCc112211","AaCcBb112211","AaBbCc221122"
+                }
+            };
+            Glasac glasac1 = new("Aaa", "Bbb", "Ccc", DateTime.Parse("11/11/2001"), "221E221", "1111001123123");
+            bool bacaIzuzetak = false;
+            try
+            {
+                glasac1.VjerodostojnostGlasaca(fake);
+            }
+            catch (Exception)
+            {
+                bacaIzuzetak = true;
+            }
+            Assert.IsTrue(bacaIzuzetak);
+            Glasac glasac2 = new("Ddd", "Bbb", "Ccc", DateTime.Parse("11/11/2001"), "221E221", "1111001123123");
+            Assert.IsTrue(glasac2.VjerodostojnostGlasaca(fake));
+        }
     }
 }
