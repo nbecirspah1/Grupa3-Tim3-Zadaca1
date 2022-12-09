@@ -27,9 +27,26 @@
 				<JMBG>
 					1111000222222
 				</JMBG>
-				<Informacije>
-					Informacije
-				</Informacije>				
+			</Kandidat>
+			<Kandidat>
+				<Ime>
+					Ime
+				</Ime>
+				<Prezime>
+					Prezime
+				</Prezime>
+				<Adresa>
+					Adresa
+				</Adresa>
+				<DatumRodenja>
+					22/11/2000
+				</DatumRodenja>
+				<BrojLicneKarte>
+					222E222
+				</BrojLicneKarte>
+				<JMBG>
+					2211000222222
+				</JMBG>
 			</Kandidat>
 		</Kandidati>
 		<InformacijeRukovodstva>
@@ -55,9 +72,26 @@
 				<JMBG>
 					1111000222222
 				</JMBG>
-				<Informacije>
-					Informacije
-				</Informacije>
+			</Kandidat>
+			<Kandidat>
+				<Ime>
+					Ime
+				</Ime>
+				<Prezime>
+					Prezime
+				</Prezime>
+				<Adresa>
+					Adresa
+				</Adresa>
+				<DatumRodenja>
+					22/11/2000
+				</DatumRodenja>
+				<BrojLicneKarte>
+					222E222
+				</BrojLicneKarte>
+				<JMBG>
+					2211000222222
+				</JMBG>
 			</Kandidat>
 		</Rukovodstvo>
 	</Stranka>
