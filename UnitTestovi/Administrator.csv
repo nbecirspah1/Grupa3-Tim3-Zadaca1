@@ -1,0 +1,39 @@
+﻿poruka,identifikacioniBroj,sifra,daLiCeDociDoBacanjaIzuzetka
+"Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:
+
+Ne postoji glasač sa tim identifikacionim brojem.
+
+","Pogresan identifikacioni broj","Nije bitna šifra",false
+"Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:
+
+Iz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):
+
+","HuHuAd011101","VVS20222023",false
+"Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:
+
+Iz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):
+Ostalo vam je još 2 pokušaja.
+
+","HuHuAd011101","Pogresna šifra
+VVS20222023",false
+"Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:
+
+Iz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):
+Ostalo vam je još 2 pokušaja.
+Ostalo vam je još 1 pokušaja.
+
+","HuHuAd011101","Pogresna šifra prvi put
+Pogresna šifra drugi put
+VVS20222023",false
+"Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:
+
+Iz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):
+Ostalo vam je još 2 pokušaja.
+Ostalo vam je još 1 pokušaja.
+Ostalo vam je još 0 pokušaja.
+
+Nemate dopuštenje da poništite nečiji glas.
+Pokušaj proboja. Gasimo sistem...
+","HuHuAd011101","Pogresna šifra prvi put
+Pogresna šifra drugi put
+Pogresna šifra treci put",true

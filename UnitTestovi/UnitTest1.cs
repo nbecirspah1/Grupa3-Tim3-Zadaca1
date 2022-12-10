@@ -1,7 +1,6 @@
 ﻿using CsvHelper;
 using System.Globalization;
 using System.Xml;
-using System.Xml.Linq;
 using Zadaca1;
 
 namespace UnitTestovi
@@ -494,24 +493,11 @@ namespace UnitTestovi
     [TestClass]
     public class UnitTest6
     {
-        #region Inline testovi
-        static IEnumerable<object[]> Administrator
-        {
-            get
-            {
-                return new[] {
-                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nNe postoji glasač sa tim identifikacionim brojem.\n\r\n", "Pogresan identifikacioni broj", "Nije bitna šifra" , false},
-                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\n\r\n", "HuHuAd011101", "VVS20222023" , false},
-                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\n\r\n", "HuHuAd011101", "Pogresna šifra\r\nVVS20222023" , false },
-                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\nOstalo vam je još 1 pokušaja.\r\n\r\n", "HuHuAd011101", "Pogresna šifra prvi put\r\nPogresna šifra drugi put\r\nVVS20222023" , false },
-                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\nOstalo vam je još 1 pokušaja.\r\nOstalo vam je još 0 pokušaja.\r\n\nNemate dopuštenje da poništite nečiji glas.\nPokušaj proboja. Gasimo sistem...\r\n", "HuHuAd011101", "Pogresna šifra prvi put\r\nPogresna šifra drugi put\r\nPogresna šifra treci put", true }
-                };
-            }
-        }
+        #region Inicijalizacija
+        static Administrator admin;
 
-        [TestMethod]
-        [DynamicData("Administrator")]
-        public void Test1(string poruka, string identifikacioniBroj, string sifra, bool daLiCeDociDoBacanjaIzuzetka)
+        [TestInitialize]
+        public void InicjalizacijaPrijeSvakogTesta()
         {
             List<Stranka> stranke = new();
             Stranka strankaSDA = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
@@ -547,8 +533,29 @@ namespace UnitTestovi
 
             izbori.DodajGlasaca(glasac);
 
-            Administrator admin = new(izbori);
+            admin = new Administrator(izbori);
+        }
+        #endregion
 
+        #region Inline testovi
+        static IEnumerable<object[]> Administrator
+        {
+            get
+            {
+                return new[] {
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\r\nNe postoji glasač sa tim identifikacionim brojem.\r\n\r\n", "Pogresan identifikacioni broj", "Nije bitna šifra" , false},
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\r\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\n\r\n", "HuHuAd011101", "VVS20222023" , false},
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\r\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\n\r\n", "HuHuAd011101", "Pogresna šifra\r\nVVS20222023" , false },
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\r\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\nOstalo vam je još 1 pokušaja.\r\n\r\n", "HuHuAd011101", "Pogresna šifra prvi put\r\nPogresna šifra drugi put\r\nVVS20222023" , false },
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\r\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\nOstalo vam je još 1 pokušaja.\r\nOstalo vam je još 0 pokušaja.\r\n\r\nNemate dopuštenje da poništite nečiji glas.\r\nPokušaj proboja. Gasimo sistem...\r\n", "HuHuAd011101", "Pogresna šifra prvi put\r\nPogresna šifra drugi put\r\nPogresna šifra treci put", true }
+                };
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("Administrator")]
+        public void Test1(string poruka, string identifikacioniBroj, string sifra, bool daLiCeDociDoBacanjaIzuzetka)
+        {
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
@@ -572,6 +579,53 @@ namespace UnitTestovi
         #endregion
 
         #region Testovi CSV
+        static IEnumerable<object[]> AdministratorCSV
+        {
+            get
+            {
+                return UčitajPodatkeCSV();
+            }
+        }
+
+        public static IEnumerable<object[]> UčitajPodatkeCSV()
+        {
+            using (var reader = new StreamReader("Administrator.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var rows = csv.GetRecords<dynamic>();
+                foreach (var row in rows)
+                {
+                    var values = ((IDictionary<String, Object>)row).Values;
+                    var elements = values.Select(elem => elem.ToString()).ToList();
+                    yield return new object[] { elements[0], elements[1], elements[2], bool.Parse(elements[3]) };
+                }
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("AdministratorCSV")]
+        public void Test2(string poruka, string identifikacioniBroj, string sifra, bool daLiCeDociDoBacanjaIzuzetka)
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var input = identifikacioniBroj + "\r\n" + sifra;
+            var stringReader = new StringReader(input);
+            Console.SetIn(stringReader);
+
+            if (!daLiCeDociDoBacanjaIzuzetka)
+            {
+                admin.PonistiGlas();
+
+                var output = stringWriter.ToString();
+
+                Assert.AreEqual(poruka, output);
+            }
+            else
+            {
+                Assert.ThrowsException<Exception>(() => admin.PonistiGlas());
+            }
+        }
         #endregion
     }
 

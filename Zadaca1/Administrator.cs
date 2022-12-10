@@ -20,7 +20,7 @@ namespace Zadaca1
         #region Metode
         private bool UnosSifre()
         {
-            Console.WriteLine("\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):");
+            Console.WriteLine("\r\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):");
             for (int i = 0; i < 3; i++)
             {
                 string sifra = Console.ReadLine();
@@ -44,12 +44,12 @@ namespace Zadaca1
                 }
                 else
                 {
-                    throw new Exception("\nNemate dopuštenje da poništite nečiji glas.\nPokušaj proboja. Gasimo sistem...");
+                    throw new Exception("\r\nNemate dopuštenje da poništite nečiji glas.\r\nPokušaj proboja. Gasimo sistem...");
                 }
             }
             else
             {
-                Console.WriteLine("\nNe postoji glasač sa tim identifikacionim brojem.\n");
+                Console.WriteLine("\r\nNe postoji glasač sa tim identifikacionim brojem.\r\n");
             }
         }
         #endregion
