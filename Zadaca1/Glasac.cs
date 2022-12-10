@@ -49,6 +49,12 @@ namespace Zadaca1
         #endregion
 
         #region Metode
+        public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
+        {
+            if (sigurnosnaProvjera.DaLiJeVecGlasao(identifikacioniBroj))
+                throw new Exception("Glasač je već izvršio glasanje!");
+            return true;
+        }
         public void GlasajZaStranku(Stranka stranka, List<Kandidat> kandidati)
         {
             bool imaPravoGlasa = glasaoZaNezavisnogKandidata == false && glasaoZaStranku == false;
