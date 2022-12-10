@@ -18,10 +18,10 @@ namespace Zadaca1
 
         // Tarik Đogić
         #region Metode
-        public bool UnosSifre()
+        private bool UnosSifre()
         {
             Console.WriteLine("\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):");
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 string sifra = Console.ReadLine();
                 if (sifra.Equals(tajnaSifra)) return true;
@@ -44,8 +44,7 @@ namespace Zadaca1
                 }
                 else
                 {
-                    Console.WriteLine("\nNemate dopuštenje da poništite nečiji glas.\nPokušaj proboja. Gasimo sistem...");
-                    Environment.Exit(0);
+                    throw new Exception("\nNemate dopuštenje da poništite nečiji glas.\nPokušaj proboja. Gasimo sistem...");
                 }
             }
             else

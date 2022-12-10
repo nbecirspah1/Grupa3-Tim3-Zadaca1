@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 
 namespace Zadaca1
 {
@@ -174,7 +172,15 @@ namespace Zadaca1
                         if(ponistiGlas == 1)
                         {
                             Administrator admin = new(izbori);
-                            admin.PonistiGlas();
+                            try 
+                            { 
+                                admin.PonistiGlas(); 
+                            } 
+                            catch(Exception e) 
+                            {
+                                Console.WriteLine(e.Message);
+                                Environment.Exit(1); 
+                            }
                         }
                         else if(ponistiGlas == 2)
                         {

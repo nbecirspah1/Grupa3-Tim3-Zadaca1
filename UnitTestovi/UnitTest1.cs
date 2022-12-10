@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using Zadaca1;
 
 namespace UnitTestovi
@@ -489,5 +490,90 @@ namespace UnitTestovi
 
         #endregion
 
+    }
+
+    // Tarik Đogić
+    [TestClass]
+    public class UnitTest5
+    {
+        #region Inline testovi
+        static IEnumerable<object[]> Administrator
+        {
+            get
+            {
+                return new[] {
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nNe postoji glasač sa tim identifikacionim brojem.\n\r\n", "Pogresan identifikacioni broj", "Nije bitna šifra" , false},
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\n\r\n", "HuHuAd011101", "VVS20222023" , false},
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\n\r\n", "HuHuAd011101", "Pogresna šifra\r\nVVS20222023" , false },
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\nOstalo vam je još 1 pokušaja.\r\n\r\n", "HuHuAd011101", "Pogresna šifra prvi put\r\nPogresna šifra drugi put\r\nVVS20222023" , false },
+                   new object[] { "Ukucajte indetifikacioni broj glasača čiji glas želite poništiti:\r\n\nIz sigurnosnih razloga ukucajte tajnu šifru (imate 3 pokušaja):\r\nOstalo vam je još 2 pokušaja.\r\nOstalo vam je još 1 pokušaja.\r\nOstalo vam je još 0 pokušaja.\r\n\nNemate dopuštenje da poništite nečiji glas.\nPokušaj proboja. Gasimo sistem...\r\n", "HuHuAd011101", "Pogresna šifra prvi put\r\nPogresna šifra drugi put\r\nPogresna šifra treci put", true }
+                };
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("Administrator")]
+        public void Test1(string poruka, string identifikacioniBroj, string sifra, bool daLiCeDociDoBacanjaIzuzetka)
+        {
+            List<Stranka> stranke = new();
+            Stranka strankaSDA = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
+            Stranka strankaSNSD = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
+
+            Kandidat kandidatSDA1 = new("Bakir", "Izetbegović", "Adresa1", new DateTime(1955, 1, 1), "111E111", "0101955111111", strankaSDA);
+            Kandidat kandidatSDA2 = new("Sebija", "Izetbegović", "Adresa2", new DateTime(1955, 1, 2), "222E222", "0201955222222", strankaSDA);
+
+            Kandidat kandidatSNSD1 = new("Milorad", "Dodik", "Adresa4", new DateTime(1955, 1, 4), "444E444", "0401955444444", strankaSNSD);
+            Kandidat kandidatSNSD2 = new("Željka", "Cvijanović", "Adresa5", new DateTime(1955, 1, 5), "555E555", "0501955555555", strankaSNSD);
+
+            List<Kandidat> nezavisniKandidati = new();
+            Kandidat nezavisniKandidat1 = new("Edin", "Forto", "Adresa7", new DateTime(1955, 1, 7), "777E777", "0701955777777");
+            Kandidat nezavisniKandidat2 = new("Nermin", "Nikšić", "Adresa8", new DateTime(1955, 1, 8), "888E888", "0801955888888");
+
+
+            strankaSDA.DodajKandidata(kandidatSDA1);
+            strankaSDA.DodajKandidata(kandidatSDA2);
+            stranke.Add(strankaSDA);
+
+            strankaSNSD.DodajKandidata(kandidatSNSD1);
+            strankaSNSD.DodajKandidata(kandidatSNSD2);
+            stranke.Add(strankaSNSD);
+
+            nezavisniKandidati.Add(nezavisniKandidat1);
+            nezavisniKandidati.Add(nezavisniKandidat2);
+
+            Izbori izbori = new(stranke, nezavisniKandidati, 100);
+
+            Glasac glasac = new("Huse", "Husić", "Adresa1", new DateTime(1993, 1, 1), "111J111", "0101993111111");
+
+            glasac.GlasajZaStranku(strankaSDA, new List<Kandidat>() { kandidatSDA1, kandidatSDA2 });
+
+            izbori.DodajGlasaca(glasac);
+
+            Administrator admin = new(izbori);
+
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var input = identifikacioniBroj + "\r\n" + sifra;
+            var stringReader = new StringReader(input);
+            Console.SetIn(stringReader);
+
+            if (!daLiCeDociDoBacanjaIzuzetka)
+            {
+                admin.PonistiGlas();
+
+                var output = stringWriter.ToString();
+
+                Assert.AreEqual(poruka, output);
+            }
+            else
+            {
+                Assert.ThrowsException<Exception>(() => admin.PonistiGlas());
+            }
+        }
+        #endregion
+
+        #region Testovi CSV
+        #endregion
     }
 }
