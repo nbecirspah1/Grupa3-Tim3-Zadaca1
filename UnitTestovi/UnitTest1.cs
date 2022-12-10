@@ -494,7 +494,7 @@ namespace UnitTestovi
 
     // Tarik Đogić
     [TestClass]
-    public class UnitTest5
+    public class UnitTest6
     {
         #region Inline testovi
         static IEnumerable<object[]> Administrator
