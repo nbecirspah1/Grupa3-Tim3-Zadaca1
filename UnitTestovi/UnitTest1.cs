@@ -430,7 +430,7 @@ namespace UnitTestovi
         public static IEnumerable<object[]> UčitajPodatkeXML()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("C:\\Users\\DT User2\\source\\repos\\nbecirspah1\\Grupa3-Tim3-Zadaca1\\UnitTestovi\\Stranka.xml");
+            doc.Load("Stranka.xml");
             XmlNodeList strankeXML = doc.SelectNodes("//Stranke/Stranka");
             XmlNodeList kandidatiXML = doc.SelectNodes("//Stranke/Stranka/Kandidati");
             XmlNodeList rukovodstvoXML = doc.SelectNodes("//Stranke/Stranka/Rukovodstvo");
