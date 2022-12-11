@@ -16,17 +16,17 @@ namespace UnitTestovi
             {
                 return new[]
                 {
-                 new object[] { "", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "Din", "", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "Din", "Prezime", "", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "Din1", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "Din", "Prezime1", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "D", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "Din", "Pr", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"},
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/2024"), "123E123", "0101024170001"},
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/2009"), "123E123", "0101009170001"},
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123A123", "0101996170001"},
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "01019171701"}
+                 new object[] { "", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "Din", "", "Adresa", DateTime.ParseExact("01/01/1996", "dd/MM/yyyy", CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "Din", "Prezime", "", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "Din1", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "Din", "Prezime1", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "D", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "Din", "Pr", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101996170001"},
+                 new object[] { "Din", "Prezime", "Adresa", DateTime.ParseExact("01/01/2024","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101024170001"},
+                 new object[] { "Din", "Prezime", "Adresa", DateTime.ParseExact("01/01/2009","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "0101009170001"},
+                 new object[] { "Din", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123A123", "0101996170001"},
+                 new object[] { "Din", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996","dd/MM/yyyy",CultureInfo.InvariantCulture), "123E123", "01019171701"}
                 };
             }
         }
@@ -37,7 +37,7 @@ namespace UnitTestovi
             {
                 return new[]
                 {
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123", "0101996170001"}
+                 new object[] { "Din", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996", "dd/MM/yyyy", CultureInfo.InvariantCulture), "123E123", "0101996170001"}
                 };
             }
         }
@@ -89,7 +89,7 @@ namespace UnitTestovi
                 {
                     var values = ((IDictionary<String, Object>)row).Values;
                     var elements = values.Select(elem => elem.ToString()).ToList();
-                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.Parse(elements[3]), elements[4], elements[5] };
+                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.ParseExact(elements[3], "dd/MM/yyyy", CultureInfo.InvariantCulture), elements[4], elements[5] };
                 }
             }
         }
@@ -126,10 +126,10 @@ namespace UnitTestovi
             {
                 return new[]
                 {
-                 new object[] { "Din", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123",
+                 new object[] { "Din", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996", "dd/MM/yyyy", CultureInfo.InvariantCulture), "123E123",
                  "0101996170001", "Kandidat je bio član stranke SDA od 17/10/2010 do 19/11/2011, član stranke SDP od 12/12/2012 do 13/12/2015.",
                  "Stranka: SDA, Članstvo od: 17/10/2010, Članstvo do: 19/11/2011\nStranka: SDP, Članstvo od: 12/12/2012, Članstvo do: 13/12/2015\n"},
-                 new object[] { "Amina", "Prezime", "Adresa", DateTime.Parse("01/01/1996"), "123E123",
+                 new object[] { "Amina", "Prezime", "Adresa", DateTime.ParseExact("01/01/1996", "dd/MM/yyyy", CultureInfo.InvariantCulture), "123E123",
                  "0101996170001", "Kandidat je bio član stranke Stranka demokratske akcije od 18/10/2011 do 19/11/2013, član stranke Demokratska fronta od 12/12/2013 do 13/12/2016.",
                  "Stranka: Stranka demokratske akcije, Članstvo od: 18/10/2011, Članstvo do: 19/11/2013\nStranka: Demokratska fronta, Članstvo od: 12/12/2013, Članstvo do: 13/12/2016\n"}
                  };
@@ -169,7 +169,7 @@ namespace UnitTestovi
                     var values = ((IDictionary<String, Object>)row).Values;
                     var elements = values.Select(elem => elem.ToString()).ToList();
                     elements[7] = elements[7].Replace("$", "\n");
-                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.Parse(elements[3]), elements[4], elements[5], elements[6], elements[7] };
+                    yield return new object[] { elements[0], elements[1], elements[2], DateTime.ParseExact(elements[3], "dd/MM/yyyy", CultureInfo.InvariantCulture), elements[4], elements[5], elements[6], elements[7] };
                 }
             }
         }
@@ -224,10 +224,10 @@ namespace UnitTestovi
 
             List<Glasac> glasaci = new()
             {
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("01/01/2001"),"111E111","0101001111111"),
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("02/02/2002"),"222E222","0202002222222"),
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("03/03/2003"),"333E333","0303003333333"),
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("04/04/2004"),"444E444","0404004444444")
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("01/01/2001", "dd/MM/yyyy", CultureInfo.InvariantCulture),"111E111","0101001111111"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("02/02/2002", "dd/MM/yyyy", CultureInfo.InvariantCulture),"222E222","0202002222222"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("03/03/2003", "dd/MM/yyyy", CultureInfo.InvariantCulture),"333E333","0303003333333"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("04/04/2004", "dd/MM/yyyy", CultureInfo.InvariantCulture),"444E444","0404004444444")
             };
 
             Izbori izbori = new(stranke, new(), 100);
@@ -307,10 +307,10 @@ namespace UnitTestovi
 
             List<Glasac> glasaci = new()
             {
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("01/01/2001"),"111E111","0101001111111"),
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("02/02/2002"),"222E222","0202002222222"),
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("03/03/2003"),"333E333","0303003333333"),
-                new Glasac("Ime", "Prezime", "Adresa", DateTime.Parse("04/04/2004"),"444E444","0404004444444")
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("01/01/2001", "dd/MM/yyyy", CultureInfo.InvariantCulture),"111E111","0101001111111"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("02/02/2002", "dd/MM/yyyy", CultureInfo.InvariantCulture),"222E222","0202002222222"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("03/03/2003", "dd/MM/yyyy", CultureInfo.InvariantCulture),"333E333","0303003333333"),
+                new Glasac("Ime", "Prezime", "Adresa", DateTime.ParseExact("04/04/2004", "dd/MM/yyyy", CultureInfo.InvariantCulture),"444E444","0404004444444")
             };
 
             Izbori izbori = new(stranke, new(), 100);
@@ -392,7 +392,7 @@ namespace UnitTestovi
             [TestMethod]
             public void TestIspisaInformacijaRukovodstva2()
             {
-                Kandidat kandidat2 = new Kandidat("Bake", "Baki", "22", Convert.ToDateTime("22/3/2000"), "111E111", "2203000222222");
+                Kandidat kandidat2 = new Kandidat("Bake", "Baki", "22", DateTime.ParseExact("22/03/2000", "dd/MM/yyyy", CultureInfo.InvariantCulture), "111E111", "2203000222222");
                 stranka.DodajKandidata(kandidat);
                 stranka.dodajClanaRukovodstva(kandidat);
                 kandidat2.BrojGlasova = 10;
@@ -410,8 +410,8 @@ namespace UnitTestovi
             {
                 return new[]
                 {
-                 new object[] { "Stranka", "BiH", new List<Kandidat>(){new Kandidat("Ime", "Prezime", "Adresa", DateTime.Parse("11/11/2000"),"222E222","1111000222222"), new Kandidat("Ime", "Prezime", "Adresa", DateTime.Parse("11/11/1999"), "222E222", "1111999222222")}
-                 , "Rukovodstvo", new List<Kandidat>(){ new Kandidat("Ime", "Prezime", "Adresa", DateTime.Parse("11/11/2000"), "222E222", "1111000222222")}, "Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: ImPrAd112211" }
+                 new object[] { "Stranka", "BiH", new List<Kandidat>(){new Kandidat("Ime", "Prezime", "Adresa", DateTime.ParseExact("11/11/2000", "dd/MM/yyyy", CultureInfo.InvariantCulture),"222E222","1111000222222"), new Kandidat("Ime", "Prezime", "Adresa", DateTime.ParseExact("11/11/1999", "dd/MM/yyyy", CultureInfo.InvariantCulture), "222E222", "1111999222222")}
+                 , "Rukovodstvo", new List<Kandidat>(){ new Kandidat("Ime", "Prezime", "Adresa", DateTime.ParseExact("11/11/2000", "dd/MM/yyyy", CultureInfo.InvariantCulture), "222E222", "1111000222222")}, "Ukupan broj glasova: 0; Kandidati: Identifikacioni broj: ImPrAd112211" }
                 };
             }
         }
@@ -451,7 +451,7 @@ namespace UnitTestovi
                     string datum = kanidat.SelectSingleNode("DatumRodenja").InnerText.Trim();
                     string bjk = kanidat.SelectSingleNode("BrojLicneKarte").InnerText.Trim();
                     string jmbg = kanidat.SelectSingleNode("JMBG").InnerText.Trim();
-                    kandidati.Add(new Kandidat(ime, prezime, adresa, DateTime.Parse(datum), bjk, jmbg));
+                    kandidati.Add(new Kandidat(ime, prezime, adresa, DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture), bjk, jmbg));
                 }
                 List<Kandidat> rukovodstvo = new List<Kandidat>();
                 XmlNodeList lista2 = ruk.SelectNodes("Kandidat");
@@ -463,7 +463,7 @@ namespace UnitTestovi
                     string datum = kanidat.SelectSingleNode("DatumRodenja").InnerText.Trim();
                     string bjk = kanidat.SelectSingleNode("BrojLicneKarte").InnerText.Trim();
                     string jmbg = kanidat.SelectSingleNode("JMBG").InnerText.Trim();
-                    rukovodstvo.Add(new Kandidat(ime, prezime, adresa, DateTime.Parse(datum), bjk, jmbg));
+                    rukovodstvo.Add(new Kandidat(ime, prezime, adresa, DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture), bjk, jmbg));
                 }
                 string infoR = s.ChildNodes.Item(3).InnerText.Trim();
                 yield return new object[] { naziv, info, kandidati, infoR, rukovodstvo };
@@ -643,7 +643,7 @@ namespace UnitTestovi
                     "AaBbCc112211","AaCcBb112211","AaBbCc221122"
                 }
             };
-            Glasac glasac1 = new("Aaa", "Bbb", "Ccc", DateTime.Parse("11/11/2001"), "221E221", "1111001123123");
+            Glasac glasac1 = new("Aaa", "Bbb", "Ccc", DateTime.ParseExact("11/11/2001", "dd/MM/yyyy", CultureInfo.InvariantCulture), "221E221", "1111001123123");
             bool bacaIzuzetak = false;
             try
             {
@@ -654,7 +654,7 @@ namespace UnitTestovi
                 bacaIzuzetak = true;
             }
             Assert.IsTrue(bacaIzuzetak);
-            Glasac glasac2 = new("Ddd", "Bbb", "Ccc", DateTime.Parse("11/11/2001"), "221E221", "1111001123123");
+            Glasac glasac2 = new("Ddd", "Bbb", "Ccc", DateTime.ParseExact("11/11/2001", "dd/MM/yyyy", CultureInfo.InvariantCulture), "221E221", "1111001123123");
             Assert.IsTrue(glasac2.VjerodostojnostGlasaca(fake));
         }
     }
