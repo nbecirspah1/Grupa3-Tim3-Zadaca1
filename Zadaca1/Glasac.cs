@@ -98,38 +98,54 @@ namespace Zadaca1
         public Stranka DajStranku() { return stranka; }
         public Kandidat DajNezavisnogKandidata() { return nezavisniKandidat; }
 
+
+        private void Provjeri(bool uslov, string poruka) {
+            if(uslov)
+            {
+                throw new Exception(poruka);
+            }
+        }
+
         //Amina Pandžić
         public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG){
             Regex regex = new(@"[^-a-zA-ZčćžšđČĆŽŠĐ]");
             Regex licnaKarta = new(@"[0-9][0-9][0-9][EJKMT][0-9][0-9][0-9]");
             var trenutnaGodina = Convert.ToInt32(DateTime.Now.ToString("yyyy"));
 
-            if(ime == "" || prezime == "" || adresaStanovanja == ""){ 
-                throw new Exception("Niste unijeli ime, prezime ili adresu stanovanja!");
-            }
-            else if(regex.IsMatch(ime) || regex.IsMatch(prezime)){
-                throw new Exception("Ime i prezime smiju sadržavati samo slova i crticu!");
-            }
-            else if(ime.Length < 2 || ime.Length > 40){
-                throw new Exception("Ime se sastoji od minimalno 2, a maksimalno 40 slova!");
-            }
-            else if(prezime.Length < 3 || prezime.Length > 50){
-                throw new Exception("Prezime se sastoji od minimalno 3, a maksimalno 50 slova!");
-            }
-            else if(datumRodjenja > DateTime.Now){
-                throw new Exception("Datum rođenja je u budućnosti!");
-            }
-            else if(trenutnaGodina - Convert.ToInt32(datumRodjenja.ToString("yyyy")) < 18){
-                throw new Exception("Glasač mora biti punoljetan!");
-            }
-            else if(!licnaKarta.IsMatch(brojLicneKarte) || brojLicneKarte.Length != 7){ 
-                throw new Exception("Pogrešan unos broja lične karte!");   
-            }
-            else if(JMBG.Length != 13 || string.Compare(JMBG.Substring(0,2), datumRodjenja.ToString("dd")) != 0
-                    || string.Compare(JMBG.Substring(2,2), datumRodjenja.ToString("MM")) != 0
-                    || string.Compare(JMBG.Substring(4,3), datumRodjenja.ToString("yyy").Substring(1,3)) != 0){
-                throw new Exception("JMBG nije validan!");   
-            }
+            bool uslov1 = ime == "" || prezime == "" || adresaStanovanja == "";
+            string poruka1 = "Niste unijeli ime, prezime ili adresu stanovanja!";
+
+            bool uslov2 = regex.IsMatch(ime) || regex.IsMatch(prezime);
+            string poruka2 = "Ime i prezime smiju sadržavati samo slova i crticu!";
+
+            bool uslov3 = ime.Length < 2 || ime.Length > 40;
+            string poruka3 = "Ime se sastoji od minimalno 2, a maksimalno 40 slova!";
+
+            bool uslov4 = prezime.Length < 3 || prezime.Length > 50;
+            string poruka4 = "Prezime se sastoji od minimalno 3, a maksimalno 50 slova!";
+
+            bool uslov5 = datumRodjenja > DateTime.Now;
+            string poruka5 = "Datum rođenja je u budućnosti!";
+
+            bool uslov6 = trenutnaGodina - Convert.ToInt32(datumRodjenja.ToString("yyyy")) < 18;
+            string poruka6 = "Glasač mora biti punoljetan!";
+
+            bool uslov7 = !licnaKarta.IsMatch(brojLicneKarte) || brojLicneKarte.Length != 7;
+            string poruka7 = "Pogrešan unos broja lične karte!";
+
+            bool uslov8 = JMBG.Length != 13 || string.Compare(JMBG.Substring(0, 2), datumRodjenja.ToString("dd")) != 0
+                    || string.Compare(JMBG.Substring(2, 2), datumRodjenja.ToString("MM")) != 0
+                    || string.Compare(JMBG.Substring(4, 3), datumRodjenja.ToString("yyy").Substring(1, 3)) != 0;
+            string poruka8 = "JMBG nije validan!";
+
+            Provjeri(uslov1, poruka1);
+            Provjeri(uslov2, poruka2);
+            Provjeri(uslov3, poruka3);
+            Provjeri(uslov4, poruka4);
+            Provjeri(uslov5, poruka5);
+            Provjeri(uslov6, poruka6);
+            Provjeri(uslov7, poruka7);
+            Provjeri(uslov8, poruka8);
         }
         #endregion
     }
