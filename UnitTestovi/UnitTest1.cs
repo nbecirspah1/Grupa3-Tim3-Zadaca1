@@ -658,4 +658,56 @@ namespace UnitTestovi
             Assert.IsTrue(glasac2.VjerodostojnostGlasaca(fake));
         }
     }
+
+    // Unit test za CODE Tuning
+    [TestClass]
+    public class UnitTest7 
+    {
+        [TestMethod]
+        public void TestCodeTuning()
+        {
+            List<Stranka> stranke = new();
+            Stranka strankaSDA = new("SDA", "Izetbegović za predsjednika!", new List<Kandidat>());
+            Stranka strankaSNSD = new("SNSD", "Krišto za predsjednicu!", new List<Kandidat>());
+
+            Kandidat kandidatSDA1 = new("Bakir", "Izetbegović", "Adresa1", new DateTime(1955, 1, 1), "111E111", "0101955111111", strankaSDA);
+            Kandidat kandidatSDA2 = new("Sebija", "Izetbegović", "Adresa2", new DateTime(1955, 1, 2), "222E222", "0201955222222", strankaSDA);
+
+            Kandidat kandidatSNSD1 = new("Milorad", "Dodik", "Adresa4", new DateTime(1955, 1, 4), "444E444", "0401955444444", strankaSNSD);
+            Kandidat kandidatSNSD2 = new("Željka", "Cvijanović", "Adresa5", new DateTime(1955, 1, 5), "555E555", "0501955555555", strankaSNSD);
+
+            List<Kandidat> nezavisniKandidati = new();
+            Kandidat nezavisniKandidat1 = new("Edin", "Forto", "Adresa7", new DateTime(1955, 1, 7), "777E777", "0701955777777");
+            Kandidat nezavisniKandidat2 = new("Nermin", "Nikšić", "Adresa8", new DateTime(1955, 1, 8), "888E888", "0801955888888");
+
+
+            strankaSDA.DodajKandidata(kandidatSDA1);
+            strankaSDA.DodajKandidata(kandidatSDA2);
+            stranke.Add(strankaSDA);
+
+            strankaSNSD.DodajKandidata(kandidatSNSD1);
+            strankaSNSD.DodajKandidata(kandidatSNSD2);
+            stranke.Add(strankaSNSD);
+
+            nezavisniKandidati.Add(nezavisniKandidat1);
+            nezavisniKandidati.Add(nezavisniKandidat2);
+
+            // Stavljam veliki broj mogucih glasaca, pa cu ih kroz petlju dodavati da vidim performanse metode
+            int brojMogucihGlasaca = 2000000;
+            Izbori izbori = new(stranke, nezavisniKandidati, brojMogucihGlasaca);
+
+            int x = 0;
+
+            for(int i = 0; i < brojMogucihGlasaca; i++)
+            {
+                Glasac glasac = new("Huse", "Husić", "Adresa" + i, new DateTime(1993, 1, 1), "111J111", "0101993111111");
+                glasac.GlasajZaStranku(strankaSDA, new List<Kandidat>() { kandidatSDA1, kandidatSDA2 });
+                izbori.DodajGlasaca(glasac);
+            }
+
+            int y = 0;
+
+            Assert.AreEqual(brojMogucihGlasaca, izbori.DajSveGlasace().Count);
+        }
+    }
 }
