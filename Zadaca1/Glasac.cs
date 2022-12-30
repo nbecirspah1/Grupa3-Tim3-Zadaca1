@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Zadaca1
@@ -70,7 +71,7 @@ namespace Zadaca1
                     {
                         throw new Exception("Morate glasati za kandidate iz izabrane stranke!");
                     }
-                    
+
                 }
                 foreach (Kandidat k in kandidati)
                 {
@@ -98,48 +99,64 @@ namespace Zadaca1
         public Stranka DajStranku() { return stranka; }
         public Kandidat DajNezavisnogKandidata() { return nezavisniKandidat; }
 
+        private void ValidirajDuzinuStringa(string str, int minDuzina, int maxDuzina)
+        {
+            if (str.Length < minDuzina || str.Length > maxDuzina)
+            {
+                throw new Exception($"Unos se sastoji od minimalno {minDuzina}, a maksimalno {maxDuzina} slova!");
+            }
+        }
+
         //Amina Pandžić
-        public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG){
+        public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG)
+        {
+            Dictionary<string, string> izuzeci = new Dictionary<string, string>
+            {
+                {"praznaAdresa", "Niste unijeli adresu stanovanja!"},
+                {"neispravniKarakteri", "Ime i prezime smiju sadržavati samo slova, brojeve i crticu!"},
+                {"datumUBuducnosti", "Datum rođenja je u budućnosti!"},
+                {"maloljetan", "Glasač mora biti punoljetan!"},
+                {"neispravanBrojLK", "Pogrešan unos broja lične karte!"},
+                {"neispravanJMBG", "JMBG nije validan!"}
+            };
+
             Regex regex = new(@"[^-a-zA-ZčćžšđČĆŽŠĐ]");
             Regex licnaKarta = new(@"[0-9][0-9][0-9][EJKMT][0-9][0-9][0-9]");
             var trenutniDatum = DateTime.Now;
             var trenutnaGodina = Convert.ToInt32(trenutniDatum.ToString("yyyy"));
-            var duzinaImena = ime.Length;
-            var duzinaPrezimena = prezime.Length;
 
-            if (ime == "" || prezime == "" || adresaStanovanja == "")
+            ValidirajDuzinuStringa(ime.Trim(), 2, 40);
+            ValidirajDuzinuStringa(prezime.Trim(), 3, 50);
+
+            var sb = new StringBuilder();
+
+            sb.Append(datumRodjenja.ToString("dd"));
+            sb.Append(datumRodjenja.ToString("MM"));
+            sb.Append(datumRodjenja.ToString("yyy").Substring(1, 3));
+
+            if (adresaStanovanja == "")
             {
-                throw new Exception("Niste unijeli ime, prezime ili adresu stanovanja!");
+                throw new Exception(izuzeci["praznaAdresa"]);
             }
             else if (regex.IsMatch(ime) || regex.IsMatch(prezime))
             {
-                throw new Exception("Ime i prezime smiju sadržavati samo slova i crticu!");
-            }
-            else if ( duzinaImena < 2 || duzinaImena > 40)
-            {
-                throw new Exception("Ime se sastoji od minimalno 2, a maksimalno 40 slova!");
-            }
-            else if (duzinaPrezimena < 3 || duzinaPrezimena > 50)
-            {
-                throw new Exception("Prezime se sastoji od minimalno 3, a maksimalno 50 slova!");
+                throw new Exception(izuzeci["neispravniKarakteri"]);
             }
             else if (datumRodjenja > trenutniDatum)
             {
-                throw new Exception("Datum rođenja je u budućnosti!");
+                throw new Exception(izuzeci["datumUBuducnosti"]);
             }
             else if (trenutnaGodina - Convert.ToInt32(datumRodjenja.ToString("yyyy")) < 18)
             {
-                throw new Exception("Glasač mora biti punoljetan!");
+                throw new Exception(izuzeci["maloljetan"]);
             }
             else if (!licnaKarta.IsMatch(brojLicneKarte) || brojLicneKarte.Length != 7)
             {
-                throw new Exception("Pogrešan unos broja lične karte!");
+                throw new Exception(izuzeci["neispravanBrojLK"]);
             }
-            else if (JMBG.Length != 13 || string.Compare(JMBG.Substring(0, 2), datumRodjenja.ToString("dd")) != 0
-                    || string.Compare(JMBG.Substring(2, 2), datumRodjenja.ToString("MM")) != 0
-                    || string.Compare(JMBG.Substring(4, 3), datumRodjenja.ToString("yyy").Substring(1, 3)) != 0)
+            else if (JMBG.Length != 13 || string.Compare(JMBG.Substring(0, 7), sb.ToString()) != 0)
             {
-                throw new Exception("JMBG nije validan!");
+                throw new Exception(izuzeci["neispravanJMBG"]);
             }
         }
         #endregion
