@@ -102,10 +102,7 @@ namespace Zadaca1
         public void ValidacijaPodataka(string ime, string prezime, string adresaStanovanja, DateTime datumRodjenja, string brojLicneKarte, string JMBG){
             Regex regex = new(@"[^-a-zA-ZčćžšđČĆŽŠĐ]");
             Regex licnaKarta = new(@"[0-9][0-9][0-9][EJKMT][0-9][0-9][0-9]");
-            var trenutniDatum = DateTime.Now;
-            var trenutnaGodina = Convert.ToInt32(trenutniDatum.ToString("yyyy"));
-            var duzinaImena = ime.Length;
-            var duzinaPrezimena = prezime.Length;
+            var trenutnaGodina = Convert.ToInt32(DateTime.Now.ToString("yyyy"));
 
             if (ime == "" || prezime == "" || adresaStanovanja == "")
             {
@@ -115,15 +112,15 @@ namespace Zadaca1
             {
                 throw new Exception("Ime i prezime smiju sadržavati samo slova i crticu!");
             }
-            else if ( duzinaImena < 2 || duzinaImena > 40)
+            else if (ime.Length < 2 || ime.Length > 40)
             {
                 throw new Exception("Ime se sastoji od minimalno 2, a maksimalno 40 slova!");
             }
-            else if (duzinaPrezimena < 3 || duzinaPrezimena > 50)
+            else if (prezime.Length < 3 || prezime.Length > 50)
             {
                 throw new Exception("Prezime se sastoji od minimalno 3, a maksimalno 50 slova!");
             }
-            else if (datumRodjenja > trenutniDatum)
+            else if (datumRodjenja > DateTime.Now)
             {
                 throw new Exception("Datum rođenja je u budućnosti!");
             }
